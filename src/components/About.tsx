@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'motion/react';
-import { Baby, Palette, ShieldCheck, ArrowRight, Flower, Flower2, Heart, Star } from 'lucide-react';
+import { Baby, Palette, ShieldCheck, ArrowRight } from 'lucide-react';
 import ShinyText from './ShinyText';
 import { Reveal } from './Reveal';
 
@@ -13,7 +13,6 @@ export const About = () => {
 
   const y1 = useTransform(scrollYProgress, [0, 1], [0, -100]);
   const y2 = useTransform(scrollYProgress, [0, 1], [0, 100]);
-  const rotate = useTransform(scrollYProgress, [0, 1], [0, 10]);
 
   const smoothY1 = useSpring(y1, { stiffness: 100, damping: 30 });
   const smoothY2 = useSpring(y2, { stiffness: 100, damping: 30 });
@@ -54,68 +53,7 @@ export const About = () => {
           className="absolute bottom-0 right-1/4 w-64 h-64 bg-purple-100/40 rounded-full blur-3xl will-change-transform" 
         />
 
-        {/* Floating Nature Elements */}
-        {[...Array(8)].map((_, i) => {
-          const Icon = i % 2 === 0 ? Flower : Flower2;
-          const colors = ['text-rose-200', 'text-pink-200', 'text-yellow-200', 'text-blue-200'];
-          const color = colors[i % colors.length];
-          return (
-            <motion.div
-              key={`about-flower-${i}`}
-              className={`absolute ${color} opacity-20 will-change-transform`}
-              style={{
-                top: `${Math.random() * 100}%`,
-                left: `${Math.random() * 100}%`,
-                translateZ: 0
-              }}
-              animate={{ 
-                y: [0, -40, 0],
-                rotate: [0, 360],
-                scale: [0.8, 1.2, 0.8]
-              }}
-              transition={{ 
-                duration: 8 + Math.random() * 8, 
-                repeat: Infinity, 
-                ease: "easeInOut",
-                delay: i * 2
-              }}
-            >
-              <Icon size={20 + Math.random() * 40} />
-            </motion.div>
-          );
-        })}
-
-        {/* Floating Hearts and Stars */}
-        {[...Array(6)].map((_, i) => {
-          const Icon = i % 2 === 0 ? Heart : Star;
-          const colors = ['text-rose-200', 'text-yellow-200', 'text-blue-200', 'text-purple-200'];
-          const color = colors[i % colors.length];
-          return (
-            <motion.div
-              key={`about-magic-${i}`}
-              className={`absolute ${color} opacity-20 will-change-transform`}
-              style={{
-                top: `${Math.random() * 100}%`,
-                left: `${Math.random() * 100}%`,
-                translateZ: 0
-              }}
-              animate={{ 
-                y: [0, -60, 0],
-                rotate: [0, 360],
-                scale: [0.5, 1, 0.5],
-                opacity: [0.1, 0.3, 0.1]
-              }}
-              transition={{ 
-                duration: 12 + Math.random() * 10, 
-                repeat: Infinity, 
-                ease: "easeInOut",
-                delay: i * 4
-              }}
-            >
-              <Icon size={15 + Math.random() * 25} fill="currentColor" />
-            </motion.div>
-          );
-        })}
+        {/* Decorative glows only - no floating animations for performance */}
       </div>
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">

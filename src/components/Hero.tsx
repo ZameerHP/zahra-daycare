@@ -1,70 +1,24 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'motion/react';
-import { Cloud, Sun, Trees as Tree, Bird, Sparkles, Flower, Flower2, Wind, Heart, Star } from 'lucide-react';
-import gsap from 'gsap';
+import { Cloud, Sun, Trees as Tree, Sparkles, Flower } from 'lucide-react';
 import ShinyText from './ShinyText';
 import { Reveal } from './Reveal';
 
 export const Hero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const buttonRef1 = useRef<HTMLButtonElement>(null);
-  const buttonRef2 = useRef<HTMLButtonElement>(null);
   const { scrollY } = useScroll();
 
-  // Parallax transforms with refined speeds
+  // Simplified parallax transforms
   const skyY = useTransform(scrollY, [0, 1000], [0, 150]);
-  const cloudsY = useTransform(scrollY, [0, 1000], [0, 300]);
   const hillsY = useTransform(scrollY, [0, 1000], [0, 400]);
-  const foregroundY = useTransform(scrollY, [0, 1000], [0, -100]);
   const contentY = useTransform(scrollY, [0, 500], [0, 100]);
 
-  const springConfig = { stiffness: 80, damping: 25, restDelta: 0.001 };
+  const springConfig = { stiffness: 100, damping: 30 };
   const smoothSkyY = useSpring(skyY, springConfig);
-  const smoothCloudsY = useSpring(cloudsY, springConfig);
   const smoothHillsY = useSpring(hillsY, springConfig);
-  const smoothForegroundY = useSpring(foregroundY, springConfig);
   const smoothContentY = useSpring(contentY, springConfig);
 
   const headline = "A Safe and Happy Place for Your Child to Learn and Grow";
-  const words = headline.split(" ");
-
-  useEffect(() => {
-    const buttons = [buttonRef1.current, buttonRef2.current];
-    
-    buttons.forEach(btn => {
-      if (!btn) return;
-      
-      const onMouseMove = (e: MouseEvent) => {
-        const rect = btn.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
-        
-        gsap.to(btn, {
-          x: x * 0.35,
-          y: y * 0.35,
-          duration: 0.4,
-          ease: "power3.out"
-        });
-      };
-      
-      const onMouseLeave = () => {
-        gsap.to(btn, {
-          x: 0,
-          y: 0,
-          duration: 0.6,
-          ease: "elastic.out(1, 0.4)"
-        });
-      };
-      
-      btn.addEventListener('mousemove', onMouseMove);
-      btn.addEventListener('mouseleave', onMouseLeave);
-      
-      return () => {
-        btn.removeEventListener('mousemove', onMouseMove);
-        btn.removeEventListener('mouseleave', onMouseLeave);
-      };
-    });
-  }, []);
 
   return (
     <section 
@@ -95,33 +49,10 @@ export const Hero = () => {
         </div>
       </motion.div>
 
-      {/* Clouds Layer */}
-      <motion.div 
-        style={{ y: smoothCloudsY, translateZ: 0 }}
-        className="absolute inset-0 z-[5] will-change-transform"
-      >
-        {[...Array(5)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute text-white/70 drop-shadow-md will-change-transform"
-            aria-hidden="true"
-            style={{ 
-              top: 40 + i * 120, 
-              left: -400,
-              translateZ: 0
-            }}
-            animate={{ x: '140vw' }}
-            transition={{ 
-              duration: 25 + i * 10, 
-              repeat: Infinity, 
-              ease: "linear",
-              delay: i * 8
-            }}
-          >
-            <Cloud size={60 + i * 40} fill="currentColor" />
-          </motion.div>
-        ))}
-      </motion.div>
+      {/* Clouds Layer - Static for performance */}
+      <div className="absolute inset-0 z-[5] pointer-events-none">
+        {/* Static cloud background */}
+      </div>
 
       {/* Middle Layer - Hills / Greenery */}
       <motion.div 
@@ -153,67 +84,7 @@ export const Hero = () => {
           ></path>
         </svg>
         
-        {/* Flowers and Nature Elements */}
-        <div className="absolute bottom-0 left-0 w-full h-full pointer-events-none">
-          {/* Scattered Flowers */}
-          {[...Array(12)].map((_, i) => {
-            const Icon = i % 2 === 0 ? Flower : Flower2;
-            const colors = ['text-rose-400', 'text-pink-400', 'text-yellow-400', 'text-orange-400', 'text-purple-400'];
-            const color = colors[i % colors.length];
-            return (
-              <motion.div
-                key={i}
-                className={`absolute ${color} opacity-80 will-change-transform`}
-                style={{
-                  bottom: `${10 + Math.random() * 30}%`,
-                  left: `${5 + Math.random() * 90}%`,
-                  translateZ: 0
-                }}
-                animate={{ 
-                  rotate: [-10, 10, -10],
-                  scale: [1, 1.1, 1]
-                }}
-                transition={{ 
-                  duration: 3 + Math.random() * 2, 
-                  repeat: Infinity, 
-                  ease: "easeInOut",
-                  delay: Math.random() * 2
-                }}
-              >
-                <Icon size={16 + Math.random() * 20} />
-              </motion.div>
-            );
-          })}
-
-          {/* Butterflies (Sparkles) */}
-          {[...Array(5)].map((_, i) => (
-            <motion.div
-              key={`butterfly-${i}`}
-              className="absolute text-yellow-200 opacity-80 will-change-transform"
-              style={{
-                bottom: `${20 + Math.random() * 40}%`,
-                left: `${Math.random() * 100}%`,
-                translateZ: 0
-              }}
-              animate={{ 
-                x: [0, 50, -50, 0],
-                y: [0, -30, 30, 0],
-                scale: [0.8, 1.2, 0.8],
-                rotate: [0, 45, -45, 0]
-              }}
-              transition={{ 
-                duration: 8 + Math.random() * 4, 
-                repeat: Infinity, 
-                ease: "easeInOut",
-                delay: i * 2
-              }}
-            >
-              <Sparkles size={12 + Math.random() * 10} />
-            </motion.div>
-          ))}
-        </div>
-        
-        {/* Playground Elements */}
+        {/* Playground Elements Only - removed animated flowers/butterflies for performance */}
         <div className="absolute bottom-8 sm:bottom-16 left-[10%] sm:left-[15%] flex gap-8 sm:gap-16 items-end">
           <Tree className="text-green-800 opacity-70 drop-shadow-md animate-soft-float" size={60} sm:size={100} />
           <motion.div 
@@ -236,26 +107,7 @@ export const Hero = () => {
       >
         <div className="max-w-6xl w-full">
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold text-indigo-950 leading-[1.1] mb-6 sm:mb-10 tracking-tight">
-            {words.map((word, i) => (
-              <motion.span
-                key={i}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ 
-                  delay: 0.8 + i * 0.08, 
-                  duration: 0.8,
-                  ease: [0.22, 1, 0.36, 1]
-                }}
-                className={`inline-block mr-1.5 sm:mr-3 will-change-transform ${
-                  ['Safe', 'Happy', 'Learn', 'Grow'].includes(word.replace(/[.,]/g, '')) 
-                  ? 'text-indigo-600 drop-shadow-[0_0_10px_rgba(79,70,229,0.2)]' 
-                  : ''
-                }`}
-                style={{ translateZ: 0 }}
-              >
-                <ShinyText text={word} speed={3} shineColor="rgba(255,255,255,0.8)" />
-              </motion.span>
-            ))}
+            <ShinyText text={headline} speed={3} shineColor="rgba(255,255,255,0.8)" />
           </h1>
           
           <Reveal delay={1.8} y={20} width="100%">
@@ -271,7 +123,6 @@ export const Hero = () => {
           <Reveal delay={2.2} scale={0.9} y={20} width="100%">
             <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 w-full sm:w-auto px-4 sm:px-0">
               <motion.button
-                ref={buttonRef1}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
@@ -285,7 +136,6 @@ export const Hero = () => {
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.2)_0%,transparent_70%)]" />
               </motion.button>
               <motion.button
-                ref={buttonRef2}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => document.getElementById('gallery')?.scrollIntoView({ behavior: 'smooth' })}
