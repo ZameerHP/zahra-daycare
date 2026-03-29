@@ -1,6 +1,8 @@
-import React, { useState, useMemo, memo, useEffect, useRef } from 'react';
-import { motion, AnimatePresence, useInView } from 'motion/react';
+import React, { useState, useMemo, memo, useEffect } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { X, ChevronLeft, ChevronRight, Play } from 'lucide-react';
+import { Reveal } from './Reveal';
+import ShinyText from './ShinyText';
 
 // --- TYPES ---
 type Category =
@@ -107,8 +109,6 @@ const MediaCard = memo(({ item, onClick }: any) => {
 export const Gallery = () => {
   const [selectedItem, setSelectedItem] = useState<any>(null);
   const [index, setIndex] = useState(0);
-  const headingRef = useRef(null);
-  const isHeadingInView = useInView(headingRef, { once: true, margin: '0px 0px -100px 0px' });
 
   const filtered = useMemo(() => {
     return galleryItems;
@@ -138,57 +138,29 @@ export const Gallery = () => {
     <section id="gallery" className="py-20">
       <div className="max-w-7xl mx-auto px-6">
         
-        {/* PREMIUM HEADING */}
-        <motion.div
-          ref={headingRef}
-          className="text-center mb-20 px-4"
-          initial={{ opacity: 0, y: 30 }}
-          animate={isHeadingInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
-        >
-          {/* SUBTITLE - SOFT ACCENT */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={isHeadingInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-            transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
-            className="mb-3"
-          >
-            <span className="text-sm sm:text-base font-medium tracking-widest uppercase text-indigo-500">
-              Gallery
-            </span>
-          </motion.div>
-
-          {/* MAIN HEADING WITH GRADIENT */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={isHeadingInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
-          >
-            <h2
-              className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold font-serif leading-tight tracking-tight"
-              style={{
-                backgroundImage: 'linear-gradient(135deg, #6366f1 0%, #9333ea 35%, #ec4899 70%, #f97316 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-                textShadow: '0 0 30px rgba(99, 102, 241, 0.3), 0 0 60px rgba(147, 51, 234, 0.2)',
-                filter: 'drop-shadow(0 0 20px rgba(99, 102, 241, 0.2))',
-              }}
-            >
-              Little Moments, Big Memories
+        {/* HEADING - MATCHING ABOUT SECTION */}
+        <div className="text-center max-w-3xl mx-auto mb-12">
+          <Reveal y={20} width="100%">
+            <div className="inline-block px-5 py-2.5 mb-6 rounded-full bg-white border border-indigo-100 shadow-md">
+              <div className="flex items-center gap-3">
+                <span className="w-2.5 h-2.5 rounded-full bg-[#4facfe] animate-pulse" />
+                <span className="text-[10px] sm:text-xs font-bold text-indigo-600 uppercase tracking-widest">Gallery</span>
+              </div>
+            </div>
+          </Reveal>
+          
+          <Reveal y={30} delay={0.3} width="100%">
+            <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold text-[#0f172a] tracking-tight leading-tight mb-6">
+              <ShinyText text="Little Moments, Big Memories" speed={3} />
             </h2>
-          </motion.div>
+          </Reveal>
 
-          {/* DESCRIPTION */}
-          <motion.p
-            initial={{ opacity: 0, y: 15 }}
-            animate={isHeadingInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-base sm:text-lg text-gray-600 mt-6 max-w-2xl mx-auto leading-relaxed font-light"
-          >
-            Discover the joy, laughter, and growth captured in every frame
-          </motion.p>
-        </motion.div>
+          <Reveal y={20} delay={0.5} width="100%">
+            <p className="text-base sm:text-lg text-slate-700 leading-relaxed font-medium">
+              <ShinyText text="Discover the joy, laughter, and growth captured in every frame" speed={4} />
+            </p>
+          </Reveal>
+        </div>
 
         {/* GRID */}
         <motion.div
