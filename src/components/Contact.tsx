@@ -168,13 +168,16 @@ export const Contact = () => {
                   { label: 'Date of Birth', value: 'childDob', type: 'date', id: 'child-dob' }
                 ].map((field) => (
                   <div key={field.value} className={`relative group ${field.value === 'parentName' ? 'sm:col-span-2' : ''}`}>
-                    <label htmlFor={field.id} className="text-[10px] sm:text-xs font-bold text-[#6B7280] mb-1 block uppercase tracking-wider">{field.label}</label>
-                    <input
+                    <label htmlFor={field.id} className="text-[10px] sm:text-xs font-bold text-indigo-600 mb-2 block uppercase tracking-wider">
+                      {field.label} <span className="text-red-500">*</span>
+                    </label>
+                    <motion.input
                       id={field.id}
                       type={field.type}
-                      className="w-full py-2 border-b-2 border-[#D1D5DB] focus:border-[#3F2BFF] outline-none transition-colors text-xs sm:text-sm font-bold placeholder:text-[#9CA3AF] bg-transparent"
+                      className="input-premium w-full focus-ring"
                       value={formData[field.value as keyof typeof formData]}
                       onChange={(e) => setFormData({ ...formData, [field.value]: e.target.value })}
+                      whileFocus={{ scale: 1.01 }}
                       required
                     />
                   </div>
@@ -208,44 +211,62 @@ export const Contact = () => {
               </div>
 
               <div className="relative group">
-                <label htmlFor="message" className="text-[10px] sm:text-xs font-bold text-[#6B7280] mb-1 block uppercase tracking-wider">Message</label>
-                <textarea
+                <label htmlFor="message" className="text-[10px] sm:text-xs font-bold text-indigo-600 mb-2 block uppercase tracking-wider">
+                  Message <span className="text-red-500">*</span>
+                </label>
+                <motion.textarea
                   id="message"
                   placeholder="Write your message..."
-                  rows={2}
-                  className="w-full py-2 border-b-2 border-[#D1D5DB] focus:border-[#3F2BFF] outline-none transition-colors text-xs sm:text-sm font-bold placeholder:text-[#9CA3AF] resize-none bg-transparent"
+                  rows={4}
+                  className="input-premium w-full focus-ring resize-none"
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  whileFocus={{ scale: 1.01 }}
                   required
                 />
               </div>
 
               {status === 'success' && (
-                <div className="p-3 bg-green-50 border-2 border-green-200 text-green-700 rounded-xl text-xs sm:text-sm font-bold">
-                  Message sent successfully!
-                </div>
+                <motion.div 
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="p-4 bg-green-50 border-2 border-green-200 text-green-700 rounded-premium text-xs sm:text-sm font-bold shadow-premium"
+                >
+                  ✓ Message sent successfully! We'll get back to you soon.
+                </motion.div>
               )}
 
               {status === 'error' && (
-                <div className="p-3 bg-red-50 border-2 border-red-200 text-red-700 rounded-xl text-xs sm:text-sm font-bold">
-                  {errorMessage}
-                </div>
+                <motion.div 
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="p-4 bg-red-50 border-2 border-red-200 text-red-700 rounded-premium text-xs sm:text-sm font-bold shadow-premium"
+                >
+                  ✕ {errorMessage}
+                </motion.div>
               )}
 
-              <div className="flex justify-end pt-2">
+              <div className="flex justify-end pt-4">
                 <motion.button
-                  whileHover={{ scale: status === 'loading' ? 1 : 1.02 }}
-                  whileTap={{ scale: status === 'loading' ? 1 : 0.98 }}
+                  whileHover={{ scale: status === 'loading' ? 1 : 1.05, y: status === 'loading' ? 0 : -2 }}
+                  whileTap={{ scale: status === 'loading' ? 1 : 0.95 }}
                   type="submit"
                   disabled={status === 'loading'}
-                  className={`w-full sm:w-auto px-10 sm:px-12 py-3 sm:py-4 bg-[#3F2BFF] text-white rounded-xl text-xs sm:text-sm font-bold shadow-xl shadow-indigo-200 hover:bg-[#3322CC] transition-all flex items-center justify-center gap-3 ${status === 'loading' ? 'opacity-70 cursor-not-allowed' : ''}`}
+                  className={`btn-primary w-full sm:w-auto flex items-center justify-center gap-3 ${status === 'loading' ? 'opacity-70 cursor-not-allowed' : ''}`}
                 >
                   {status === 'loading' ? (
                     <>
                       <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                      Sending...
+                      <span>Sending...</span>
                     </>
-                  ) : 'Send Message'}
+                  ) : (
+                    <>
+                      <span>Send Message</span>
+                      <motion.span animate={{ x: [0, 3, 0] }} transition={{ duration: 1.5, repeat: Infinity }}>
+                        →
+                      </motion.span>
+                    </>
+                  )}
                 </motion.button>
               </div>
             </form>

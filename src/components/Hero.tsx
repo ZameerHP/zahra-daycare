@@ -121,30 +121,30 @@ export const Hero = () => {
           </Reveal>
 
           <Reveal delay={2.2} scale={0.9} y={20} width="100%">
-            <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 w-full sm:w-auto px-4 sm:px-0">
+            <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-8 w-full sm:w-auto px-4 sm:px-0">
               <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={{ scale: 1.08, y: -3 }}
+                whileTap={{ scale: 0.95 }}
                 onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
                 aria-label="Enroll your child at Zahra Daycare"
-                className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-indigo-600 to-indigo-500 text-white rounded-full font-bold text-xs sm:text-sm shadow-[0_10px_20px_rgba(79,70,229,0.3)] hover:shadow-[0_15px_30px_rgba(79,70,229,0.4)] transition-all relative overflow-hidden group min-h-[48px] flex items-center justify-center gap-2 will-change-transform"
+                className="btn-primary shadow-glow hover:shadow-glow-hover relative overflow-hidden group min-h-[56px] flex items-center justify-center gap-3 will-change-transform"
                 style={{ translateZ: 0 }}
               >
-                <Sparkles size={16} className="text-yellow-300 animate-pulse" />
+                <Sparkles size={18} className="text-yellow-200" />
                 <span className="relative z-10">Enroll Your Child</span>
-                <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out" />
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.2)_0%,transparent_70%)]" />
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.3)_0%,transparent_70%)]" />
               </motion.button>
               <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={{ scale: 1.08, y: -3 }}
+                whileTap={{ scale: 0.95 }}
                 onClick={() => document.getElementById('gallery')?.scrollIntoView({ behavior: 'smooth' })}
                 aria-label="Book a visit to Zahra Daycare"
-                className="w-full sm:w-auto px-8 py-4 bg-white/80 backdrop-blur-sm text-indigo-600 border-2 border-indigo-100/50 rounded-full font-bold text-xs sm:text-sm shadow-[0_10px_20px_rgba(0,0,0,0.05)] transition-all hover:bg-white hover:border-indigo-200 hover:shadow-[0_15px_30px_rgba(0,0,0,0.08)] inner-shadow-sm min-h-[48px] flex items-center justify-center gap-2 will-change-transform"
+                className="btn-secondary shadow-premium hover:shadow-premium-lg relative overflow-hidden group min-h-[56px] flex items-center justify-center gap-3 will-change-transform"
                 style={{ translateZ: 0 }}
               >
-                <Flower size={16} className="text-rose-400 animate-bounce" />
-                Book a Visit
+                <Flower size={18} className="text-rose-400" />
+                <span className="relative z-10">Book a Visit</span>
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/10" />
               </motion.button>
             </div>
           </Reveal>
