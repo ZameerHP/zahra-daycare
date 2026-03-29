@@ -120,6 +120,10 @@ const Navbar = () => {
               <a 
                 key={link.name} 
                 href={link.href}
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.querySelector(link.href)?.scrollIntoView({ behavior: 'smooth' });
+                }}
                 className="text-indigo-950 hover:text-indigo-600 font-black transition-all relative group py-2 text-sm uppercase tracking-[0.15em]"
               >
                 <ShinyText text={link.name} speed={5} />
@@ -204,7 +208,11 @@ const Navbar = () => {
                     initial={{ opacity: 0, x: 30 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.1 + i * 0.07, type: 'spring' }}
-                    onClick={() => setMobileMenuOpen(false)}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setMobileMenuOpen(false);
+                      document.querySelector(link.href)?.scrollIntoView({ behavior: 'smooth' });
+                    }}
                     className="text-3xl font-black text-indigo-950 hover:text-indigo-600 transition-all flex items-center justify-between group py-2"
                   >
                     <span className="tracking-tighter">{link.name}</span>
