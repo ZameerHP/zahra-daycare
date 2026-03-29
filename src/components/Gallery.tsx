@@ -100,13 +100,14 @@ const MediaCard = memo(({ item, onClick }: any) => {
         ) : (
           <img
             src={item.src}
-            />
-          )}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            alt={item.title}
+          />
+        )}
         </div>
       </motion.div>
     );
   });
-});
 
 // --- MAIN ---
 export const Gallery = () => {
