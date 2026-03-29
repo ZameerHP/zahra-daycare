@@ -171,13 +171,12 @@ export const Contact = () => {
                     <label htmlFor={field.id} className="text-[10px] sm:text-xs font-bold text-indigo-600 mb-2 block uppercase tracking-wider">
                       {field.label} <span className="text-red-500">*</span>
                     </label>
-                    <motion.input
+                    <input
                       id={field.id}
                       type={field.type}
                       className="input-premium w-full focus-ring"
                       value={formData[field.value as keyof typeof formData]}
                       onChange={(e) => setFormData({ ...formData, [field.value]: e.target.value })}
-                      whileFocus={{ scale: 1.01 }}
                       required
                     />
                   </div>
@@ -214,14 +213,13 @@ export const Contact = () => {
                 <label htmlFor="message" className="text-[10px] sm:text-xs font-bold text-indigo-600 mb-2 block uppercase tracking-wider">
                   Message <span className="text-red-500">*</span>
                 </label>
-                <motion.textarea
+                <textarea
                   id="message"
                   placeholder="Write your message..."
                   rows={4}
                   className="input-premium w-full focus-ring resize-none"
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  whileFocus={{ scale: 1.01 }}
                   required
                 />
               </div>

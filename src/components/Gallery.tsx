@@ -63,49 +63,49 @@ const categories: Category[] = [
 // --- CARD ---
 const MediaCard = memo(({ item, onClick }: any) => {
   return (
-    <Reveal y={20} delay={0.1} width="100%">
-      <motion.div
-        layout
-        className="cursor-pointer overflow-hidden rounded-premium-lg bg-black shadow-premium hover:shadow-premium-lg hover-lift group"
-        onClick={() => onClick(item)}
-        whileHover={{ scale: 1.02 }}
-        transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-      >
-        <div className="aspect-video flex items-center justify-center relative overflow-hidden">
-          {item.type === 'video' ? (
-            <>
-              <video
-                src={item.src}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                muted
-                loop
-                playsInline
-                onMouseEnter={(e) => e.currentTarget.play()}
-                onMouseLeave={(e) => e.currentTarget.pause()}
-              />
-              {/* OVERLAY */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent group-hover:from-black/70 group-hover:via-black/30 transition-all duration-300 flex items-center justify-center">
-                {/* PLAY BUTTON */}
-                <motion.div
-                  className="w-16 h-16 bg-white/95 backdrop-blur-sm rounded-full flex items-center justify-center shadow-premium-lg group-hover:shadow-glow"
-                  whileHover={{ scale: 1.2 }}
-                  transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                >
-                  <Play size={32} className="text-indigo-600 ml-1" fill="currentColor" />
-                </motion.div>
-              </div>
-            </>
-          ) : (
-            <img
+    <motion.div
+      layout
+      className="cursor-pointer overflow-hidden rounded-premium-lg bg-black shadow-premium hover:shadow-premium-lg hover-lift group"
+      onClick={() => onClick(item)}
+      whileHover={{ scale: 1.02 }}
+      transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+    >
+      <div className="aspect-video flex items-center justify-center relative overflow-hidden">
+        {item.type === 'video' ? (
+          <>
+            <video
               src={item.src}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              alt={item.title}
+              muted
+              loop
+              playsInline
+              onMouseEnter={(e) => e.currentTarget.play()}
+              onMouseLeave={(e) => e.currentTarget.pause()}
+            />
+            {/* OVERLAY */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent group-hover:from-black/70 group-hover:via-black/30 transition-all duration-300 flex items-center justify-center">
+              {/* PLAY BUTTON */}
+              <motion.div
+                className="w-16 h-16 bg-white/95 backdrop-blur-sm rounded-full flex items-center justify-center shadow-premium-lg group-hover:shadow-glow"
+                whileHover={{ scale: 1.2 }}
+                transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+              >
+                <Play size={32} className="text-indigo-600 ml-1" fill="currentColor" />
+              </motion.div>
+            </div>
+          </>
+        ) : (
+          <img
+            src={item.src}
             />
           )}
         </div>
       </motion.div>
-    </Reveal>
-  );
+    );
+  });
 });
 
 // --- MAIN ---
