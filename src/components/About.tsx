@@ -138,7 +138,7 @@ export const About = () => {
               </Reveal>
               
               <Reveal y={20} delay={0.4} width="100%">
-                <h3 className="text-base sm:text-lg lg:text-2xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#4facfe] to-[#6a11cb] text-center lg:text-left">
+                <h3 className="text-base sm:text-lg lg:text-2xl font-semibold text-[#3F2BFF] text-center lg:text-left">
                   <ShinyText text="A Magical Place to Grow" speed={4} />
                 </h3>
               </Reveal>
