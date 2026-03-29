@@ -151,7 +151,7 @@ export const Gallery = () => {
           
           <Reveal y={30} delay={0.3} width="100%">
             <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold tracking-tight leading-tight mb-6">
-              <span className="text-[#0f172a]">
+              <span className="text-[#3F2BFF]">
                 <ShinyText text="Little Moments, " speed={3} />
               </span>
               <span className="text-[#4facfe]">
