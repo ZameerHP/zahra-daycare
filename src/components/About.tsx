@@ -133,19 +133,19 @@ export const About = () => {
             <div className="flex flex-col gap-2 w-full items-center lg:items-start">
               <Reveal y={20} delay={0.3} width="100%">
                 <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold text-[#0f172a] tracking-tight leading-tight text-center lg:text-left">
-                  <ShinyText text="About Daycare Center" speed={3} />
+                  <ShinyText text="About Zahra Daycare" speed={3} />
                 </h2>
               </Reveal>
               
               <Reveal y={20} delay={0.4} width="100%">
                 <h3 className="text-base sm:text-lg lg:text-2xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#4facfe] to-[#6a11cb] text-center lg:text-left">
-                  <ShinyText text="Where Every Child Grows with Care and Confidence" speed={4} />
+                  <ShinyText text="A Magical Place to Grow" speed={4} />
                 </h3>
               </Reveal>
 
               <Reveal y={20} delay={0.5} width="100%">
                 <p className="text-slate-700 text-sm sm:text-base lg:text-lg leading-relaxed max-w-xl mx-auto lg:mx-0 font-medium text-center lg:text-left">
-                  <ShinyText text="We provide a safe, caring environment where every child receives individual attention. Through play-based learning, we help children grow, explore, and build confidence every day." speed={5} />
+                  <ShinyText text="At Zahra Daycare, we believe childhood is a magical journey of discovery and growth. Our dedicated team creates a warm, nurturing environment where each child develops their unique potential through play, creativity, and meaningful connections." speed={5} />
                 </p>
               </Reveal>
             </div>
