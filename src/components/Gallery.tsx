@@ -150,14 +150,14 @@ export const Gallery = () => {
           </Reveal>
           
           <Reveal y={30} delay={0.3} width="100%">
-            <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold text-[#0f172a] tracking-tight leading-tight mb-6">
-              <ShinyText text="Little Moments, Big Memories" speed={3} />
+            <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold tracking-tight leading-tight mb-6">
+              <span className="text-[#0f172a]">
+                <ShinyText text="Little Moments, " speed={3} />
+              </span>
+              <span className="text-[#4facfe]">
+                <ShinyText text="Big Memories" speed={3} />
+              </span>
             </h2>
-            {/* Half Black Half Blue Line */}
-            <div className="h-1 w-32 mx-auto flex gap-0">
-              <div className="flex-1 bg-[#0f172a]" />
-              <div className="flex-1 bg-[#4facfe]" />
-            </div>
           </Reveal>
 
           <Reveal y={20} delay={0.5} width="100%">
