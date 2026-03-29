@@ -1,0 +1,257 @@
+import React, { useState } from 'react';
+import { motion } from 'motion/react';
+import { Phone, Mail, MapPin, Facebook, Instagram, Twitter, Linkedin } from 'lucide-react';
+import ShinyText from './ShinyText';
+import { Reveal } from './Reveal';
+
+export const Contact = () => {
+  const [formData, setFormData] = useState({
+    parentName: '',
+    email: '',
+    phone: '',
+    childName: '',
+    childDob: '',
+    subject: 'Enroll Your Child',
+    message: ''
+  });
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus('loading');
+    setErrorMessage('');
+
+    // Basic validation
+    if (!formData.parentName || !formData.email || !formData.phone || !formData.childName || !formData.childDob || !formData.message) {
+      setStatus('error');
+      setErrorMessage('Please fill in all required fields.');
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setStatus('success');
+        setFormData({
+          parentName: '',
+          email: '',
+          phone: '',
+          childName: '',
+          childDob: '',
+          subject: 'Enroll Your Child',
+          message: ''
+        });
+      } else {
+        setStatus('error');
+        setErrorMessage(data.error || 'Failed to send message. Please try again later.');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setStatus('error');
+      setErrorMessage('A network error occurred. Please check your connection and try again.');
+    }
+  };
+
+  return (
+    <section id="contact" className="py-8 sm:py-12 px-4 sm:px-6 bg-[#F9FAFB] flex flex-col justify-center overflow-hidden scroll-mt-24" style={{ contentVisibility: 'auto', containIntrinsicSize: '0 600px' }}>
+      <div className="max-w-4xl mx-auto text-center mb-6 sm:mb-8 lg:mb-10 shrink-0">
+        <Reveal y={20} width="100%">
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-[#011C39] mb-4">
+            <ShinyText text="Contact Us" speed={3} />
+          </h2>
+        </Reveal>
+        <Reveal y={20} delay={0.3} width="100%">
+          <p className="text-[#4B5563] font-medium text-sm sm:text-base lg:text-lg">
+            <ShinyText text="Any questions or remarks? Just write us a message!" speed={4} />
+          </p>
+        </Reveal>
+      </div>
+
+      <div className="max-w-4xl mx-auto w-full">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="flex flex-col lg:flex-row bg-white rounded-[2rem] sm:rounded-[3rem] shadow-[0_20px_60px_rgba(0,0,0,0.08)] overflow-hidden will-change-transform"
+          style={{ translateZ: 0 }}
+        >
+          {/* Left Panel: Contact Info */}
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, ease: 'easeOut' }}
+            className="lg:w-[40%] bg-[#3F2BFF] text-white relative p-6 sm:p-8 flex flex-col justify-between overflow-hidden shrink-0 will-change-transform"
+            style={{ translateZ: 0 }}
+          >
+            {/* Pink Circle - Smaller and tucked in corner */}
+            <div className="absolute -bottom-10 -right-10 w-24 h-24 sm:w-32 sm:h-32 bg-[#FF9898] rounded-full opacity-90 z-0"></div>
+
+            <div className="relative z-10">
+              <h3 className="text-base sm:text-lg font-bold mb-3 sm:mb-4">
+                <ShinyText text="Contact Information" speed={3} shineColor="rgba(255,255,255,0.8)" />
+              </h3>
+              <p className="text-[#E0E0E0] mb-6 sm:mb-8 leading-relaxed text-[10px] sm:text-xs font-medium">
+                <ShinyText text="Fill out the form and our team will get back to you within 24 hours." speed={4} shineColor="rgba(255,255,255,0.6)" />
+              </p>
+
+              <div className="space-y-4 sm:space-y-6">
+                <a href="tel:+17802466870" className="flex items-center gap-3 sm:gap-4 group">
+                  <Phone size={16} className="text-white sm:w-5 sm:h-5" />
+                  <span className="text-[10px] sm:text-xs font-bold">
+                    <ShinyText text="+1 780-246-6870" speed={4} shineColor="rgba(255,255,255,0.6)" />
+                  </span>
+                </a>
+
+                <a href="mailto:zahradaycare786@gmail.com" className="flex items-center gap-3 sm:gap-4 group">
+                  <Mail size={16} className="text-white sm:w-5 sm:h-5" />
+                  <span className="text-[10px] sm:text-xs font-bold break-all">
+                    <ShinyText text="zahradaycare786@gmail.com" speed={4} shineColor="rgba(255,255,255,0.6)" />
+                  </span>
+                </a>
+
+                <div className="flex items-start gap-3 sm:gap-4 group">
+                  <MapPin size={16} className="text-white mt-1 sm:w-5 sm:h-5" />
+                  <span className="text-[10px] sm:text-xs font-bold leading-relaxed">
+                    <ShinyText text="5515-137 Avenue NW, Edmonton," speed={4} shineColor="rgba(255,255,255,0.6)" />
+                    <br />
+                    <ShinyText text="AB T5A3L4, Canada" speed={4} shineColor="rgba(255,255,255,0.6)" />
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Social Icons */}
+            <div className="flex gap-3 sm:gap-4 relative z-10 mt-8 sm:mt-10">
+              {[
+                {icon: Facebook, href: '#', label: 'Facebook'}, 
+                {icon: Twitter, href: '#', label: 'Twitter'}, 
+                {icon: Instagram, href: '#', active: true, label: 'Instagram'}, 
+                {icon: Linkedin, href: '#', label: 'LinkedIn'}
+              ].map((social, idx) => (
+                <motion.a
+                  key={idx}
+                  href={social.href}
+                  whileHover={{ scale: 1.1, y: -5 }}
+                  whileTap={{ scale: 0.9 }}
+                  aria-label={social.label}
+                  className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-all shadow-lg ${
+                    social.active ? 'bg-[#FF9898] text-white' : 'bg-white/10 hover:bg-white/20 text-white'
+                  }`}
+                >
+                  <social.icon size={16} className="sm:w-5 sm:h-5" />
+                </motion.a>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Right Panel: Form */}
+          <div className="lg:w-[60%] p-6 sm:p-8 bg-white flex flex-col">
+            <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4">
+                {[
+                  { label: 'Parent/Guardian Name', value: 'parentName', type: 'text', id: 'parent-name' },
+                  { label: 'Email', value: 'email', type: 'email', id: 'email' },
+                  { label: 'Phone', value: 'phone', type: 'tel', id: 'phone' },
+                  { label: "Child's Name", value: 'childName', type: 'text', id: 'child-name' },
+                  { label: 'Date of Birth', value: 'childDob', type: 'date', id: 'child-dob' }
+                ].map((field) => (
+                  <div key={field.value} className={`relative group ${field.value === 'parentName' ? 'sm:col-span-2' : ''}`}>
+                    <label htmlFor={field.id} className="text-[10px] sm:text-xs font-bold text-[#6B7280] mb-1 block uppercase tracking-wider">{field.label}</label>
+                    <input
+                      id={field.id}
+                      type={field.type}
+                      className="w-full py-2 border-b-2 border-[#D1D5DB] focus:border-[#3F2BFF] outline-none transition-colors text-xs sm:text-sm font-bold placeholder:text-[#9CA3AF] bg-transparent"
+                      value={formData[field.value as keyof typeof formData]}
+                      onChange={(e) => setFormData({ ...formData, [field.value]: e.target.value })}
+                      required
+                    />
+                  </div>
+                ))}
+              </div>
+
+              {/* Radio Buttons */}
+              <div className="space-y-3 sm:space-y-4">
+                <label className="text-xs sm:text-sm font-bold text-[#111827] block uppercase tracking-wider">Service Type</label>
+                <div className="flex flex-wrap gap-x-6 gap-y-2">
+                  {['Book a Tour', 'Enroll Your Child', 'Other'].map((option) => {
+                    const optionId = `service-${option.toLowerCase().replace(/\s+/g, '-')}`;
+                    return (
+                      <label key={option} htmlFor={optionId} className="flex items-center gap-2 cursor-pointer group">
+                        <div className="relative flex items-center justify-center">
+                          <input
+                            id={optionId}
+                            type="radio"
+                            name="subject"
+                            className="peer appearance-none w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 border-[#D1D5DB] checked:border-[#3F2BFF] transition-all"
+                            checked={formData.subject === option}
+                            onChange={() => setFormData({ ...formData, subject: option })}
+                          />
+                          <div className="absolute w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-[#3F2BFF] scale-0 peer-checked:scale-100 transition-transform" />
+                        </div>
+                        <span className="text-xs sm:text-sm font-bold text-[#111827]">{option}</span>
+                      </label>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className="relative group">
+                <label htmlFor="message" className="text-[10px] sm:text-xs font-bold text-[#6B7280] mb-1 block uppercase tracking-wider">Message</label>
+                <textarea
+                  id="message"
+                  placeholder="Write your message..."
+                  rows={2}
+                  className="w-full py-2 border-b-2 border-[#D1D5DB] focus:border-[#3F2BFF] outline-none transition-colors text-xs sm:text-sm font-bold placeholder:text-[#9CA3AF] resize-none bg-transparent"
+                  value={formData.message}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  required
+                />
+              </div>
+
+              {status === 'success' && (
+                <div className="p-3 bg-green-50 border-2 border-green-200 text-green-700 rounded-xl text-xs sm:text-sm font-bold">
+                  Message sent successfully!
+                </div>
+              )}
+
+              {status === 'error' && (
+                <div className="p-3 bg-red-50 border-2 border-red-200 text-red-700 rounded-xl text-xs sm:text-sm font-bold">
+                  {errorMessage}
+                </div>
+              )}
+
+              <div className="flex justify-end pt-2">
+                <motion.button
+                  whileHover={{ scale: status === 'loading' ? 1 : 1.02 }}
+                  whileTap={{ scale: status === 'loading' ? 1 : 0.98 }}
+                  type="submit"
+                  disabled={status === 'loading'}
+                  className={`w-full sm:w-auto px-10 sm:px-12 py-3 sm:py-4 bg-[#3F2BFF] text-white rounded-xl text-xs sm:text-sm font-bold shadow-xl shadow-indigo-200 hover:bg-[#3322CC] transition-all flex items-center justify-center gap-3 ${status === 'loading' ? 'opacity-70 cursor-not-allowed' : ''}`}
+                >
+                  {status === 'loading' ? (
+                    <>
+                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                      Sending...
+                    </>
+                  ) : 'Send Message'}
+                </motion.button>
+              </div>
+            </form>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+};
