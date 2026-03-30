@@ -133,16 +133,17 @@ export const About = () => {
           <div className="relative z-20 mt-6 lg:mt-0">
             <Reveal scale={0.9} y={30} delay={0.4} width="100%">
               <motion.div 
-                className="relative rounded-premium-lg overflow-hidden shadow-premium-lg border-[8px] border-white aspect-video bg-slate-100 w-full mx-auto lg:max-w-none hover-scale group" 
+                className="relative rounded-[32px] overflow-hidden shadow-premium-lg border-[8px] border-white aspect-video bg-slate-100 w-full mx-auto lg:max-w-none hover-scale group" 
                 style={{ translateZ: 0 }}
                 whileHover={{ boxShadow: "0 30px 60px rgba(79, 70, 229, 0.2)" }}
               >
                 <img 
                   src="/outside.jpg" 
                   alt="Zahra Daycare Environment"
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  className="w-full h-full object-cover rounded-[28px] group-hover:scale-110 transition-transform duration-700"
                   loading="lazy"
                   decoding="async"
+                  style={{ borderRadius: '28px' }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-indigo-900/10 to-transparent pointer-events-none" />
               </motion.div>
