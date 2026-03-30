@@ -128,8 +128,8 @@ const Navbar = () => {
                 decoding="async"
               />
             </motion.div>
-            <div className="flex flex-col -gap-1 hidden xs:flex">
-              <span className="text-base sm:text-xl font-black text-indigo-950 tracking-tighter leading-none">
+            <div className="flex flex-col -gap-1 sm:flex">
+              <span className="text-sm sm:text-xl font-black text-indigo-950 tracking-tighter leading-none">
                 <ShinyText text="Zahra" speed={3} />
               </span>
               <span className="text-xs font-bold text-indigo-400 uppercase tracking-[0.15em] leading-none">
