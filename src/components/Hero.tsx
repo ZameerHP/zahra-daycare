@@ -146,6 +146,30 @@ export const Hero = () => {
             />
           </div>
         </div>
+
+        {/* Additional Flowers - Right center */}
+        <div className="absolute bottom-9 sm:bottom-14 right-[18%] pointer-events-none opacity-85">
+          <div style={{ width: '145px', height: '145px', filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.09))' }}>
+            <dotlottie-wc 
+              src="https://lottie.host/b4e6ce8d-2921-4c06-ac6a-be59ec8ab072/G4ibccSRTb.lottie" 
+              style={{ width: '100%', height: '100%' }} 
+              autoplay 
+              loop
+            />
+          </div>
+        </div>
+
+        {/* Additional Flowers - Far right */}
+        <div className="absolute bottom-11 sm:bottom-18 right-[2%] sm:right-[3%] pointer-events-none opacity-70">
+          <div style={{ width: '135px', height: '135px', filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.08))' }}>
+            <dotlottie-wc 
+              src="https://lottie.host/5b8a6921-78d3-48f3-a3dc-0a926ec5278b/UiO3NjMdQS.lottie" 
+              style={{ width: '100%', height: '100%' }} 
+              autoplay 
+              loop
+            />
+          </div>
+        </div>
       </motion.div>
 
       {/* Foreground Layer - Content */}
