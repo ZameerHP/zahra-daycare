@@ -232,7 +232,7 @@ const Footer = () => {
       style={{ contentVisibility: 'auto', containIntrinsicSize: '0 400px' }}
     >
       <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-6">
           {/* Brand Column */}
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-3">
@@ -289,6 +289,24 @@ const Footer = () => {
               <a href="mailto:zahradaycare786@gmail.com" className="text-indigo-900/80 hover:text-indigo-600 font-semibold text-xs break-all">
                 <ShinyText text="zahradaycare786@gmail.com" speed={4} />
               </a>
+            </div>
+          </div>
+
+          {/* Map Section */}
+          <div className="flex flex-col gap-4">
+            <h5 className="font-bold text-indigo-950 text-sm uppercase tracking-wider">
+              <ShinyText text="Location" speed={3} />
+            </h5>
+            <div className="rounded-lg overflow-hidden shadow-md border border-indigo-100 h-48 sm:h-56">
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d501.7541107671962!2d-113.42613899999999!3d53.5983778!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x53a03d1a349e472f%3A0x82d84275fd873820!2sZahra%20Daycare%20Center!5e1!3m2!1sen!2s!4v1774892990373!5m2!1sen!2s" 
+                width="100%" 
+                height="100%" 
+                style={{ border: 0 }}
+                allowFullScreen={true}
+                loading="lazy" 
+                referrerPolicy="no-referrer-when-downgrade"
+              />
             </div>
           </div>
 
