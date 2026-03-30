@@ -60,16 +60,11 @@ const Navbar = () => {
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
-      // Close mobile menu on scroll
-      if (mobileMenuOpen && window.scrollY > 100) {
-        setMobileMenuOpen(false);
-      }
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [mobileMenuOpen]);
+  }, []);
 
-  // Prevent body scroll when mobile menu is open
   useEffect(() => {
     if (mobileMenuOpen) {
       document.body.style.overflow = 'hidden';
@@ -98,28 +93,19 @@ const Navbar = () => {
   };
 
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-      style={{ translateZ: 0 }}
-      className={`fixed top-0 left-0 w-full z-50 px-2 sm:px-6 transition-all duration-500 will-change-transform ${
-        scrolled ? 'py-1' : 'py-2'
-      }`}
-    >
-      <div className={`max-w-7xl mx-auto rounded-lg sm:rounded-[2.5rem] transition-all duration-700 ${
-        scrolled ? 'glass px-3 sm:px-8 py-2 shadow-[0_10px_40px_rgba(79,70,229,0.15)] bg-white/70 backdrop-blur-xl border border-white/40' : 'px-3 sm:px-6 py-2'
-      }`}>
-        <div className="flex justify-between items-center min-h-16 sm:min-h-20 gap-3 sm:gap-4">
-          <a 
-            href="/" 
-            className="flex items-center gap-2 sm:gap-3 group cursor-pointer flex-shrink-0"
-            aria-label="Daycare Center Home"
-          >
-            <motion.div 
-              whileHover={{ rotate: 15, scale: 1.1 }}
-              className="w-14 h-14 sm:w-16 sm:h-16 bg-white rounded-lg sm:rounded-[1.5rem] flex items-center justify-center shadow-2xl shadow-indigo-100 overflow-hidden border-2 border-indigo-50 flex-shrink-0"
-            >
+    <>
+      <motion.nav
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.8 }}
+        className={`fixed top-0 left-0 right-0 z-40 px-3 sm:px-6 py-3 sm:py-4 transition-all duration-500 ${
+          scrolled ? 'bg-white shadow-lg' : ''
+        }`}
+      >
+        <div className="max-w-7xl mx-auto flex justify-between items-center">
+          {/* Logo & Brand */}
+          <a href="/" className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-lg border-2 border-indigo-100 overflow-hidden shadow-md">
               <img 
                 src="/LOGOIS.png" 
                 alt="Daycare Logo"
@@ -127,134 +113,115 @@ const Navbar = () => {
                 loading="lazy"
                 decoding="async"
               />
-            </motion.div>
-            <div className="flex flex-col gap-0 hidden sm:flex flex-shrink-0">
-              <span className="text-base sm:text-lg font-black text-indigo-950 tracking-tighter leading-tight">
-                Zahra
-              </span>
-              <span className="text-xs font-bold text-indigo-400 uppercase tracking-[0.1em] leading-none">
-                Daycare
-              </span>
+            </div>
+            <div className="hidden sm:flex flex-col gap-0">
+              <span className="text-base sm:text-lg font-black text-indigo-950">Zahra</span>
+              <span className="text-xs font-bold text-indigo-500 uppercase">Daycare</span>
             </div>
           </a>
-          
-          {/* Desktop Menu */}
-          <div className="hidden md:flex gap-6 lg:gap-10 items-center flex-1 justify-end">
+
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex gap-8 items-center">
             {navLinks.map((link) => (
-              <button 
-                key={link.name} 
+              <button
+                key={link.name}
                 onClick={() => handleNavClick(link.href)}
-                className="text-indigo-950 hover:text-indigo-600 font-black transition-all relative group py-2 text-xs lg:text-sm uppercase tracking-[0.12em] whitespace-nowrap"
+                className="text-sm font-black text-indigo-950 hover:text-indigo-600 transition-colors uppercase tracking-wide"
               >
                 {link.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-1 bg-indigo-600 transition-all duration-500 ease-out group-hover:w-full rounded-full" />
               </button>
             ))}
-            <motion.button 
-              whileHover={{ scale: 1.05, y: -2 }}
+            <motion.button
+              whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => handleNavClick('#contact')}
-              className="px-8 lg:px-10 py-3 lg:py-3 bg-indigo-600 text-white rounded-full font-black shadow-xl shadow-indigo-200 transition-all text-xs lg:text-sm uppercase tracking-widest whitespace-nowrap flex-shrink-0"
+              className="px-6 py-3 bg-indigo-600 text-white rounded-full font-black text-sm shadow-lg hover:shadow-xl transition-all uppercase"
             >
               Join Us
             </motion.button>
           </div>
 
-          {/* Mobile Menu Toggle */}
-          <div className="md:hidden flex items-center flex-shrink-0">
-            <button 
-              className="w-11 h-11 sm:w-12 sm:h-12 rounded-lg bg-indigo-50 flex items-center justify-center text-indigo-950 transition-all hover:bg-indigo-100 active:scale-90"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
-              aria-expanded={mobileMenuOpen}
-            >
-              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden w-11 h-11 rounded-lg bg-indigo-100 flex items-center justify-center text-indigo-950 hover:bg-indigo-200 transition-colors"
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
         </div>
-      </div>
+      </motion.nav>
 
       {/* Mobile Menu Drawer */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <>
-            {/* Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setMobileMenuOpen(false)}
-              className="fixed inset-0 bg-indigo-950/50 backdrop-blur-sm z-40 md:hidden"
-              style={{ top: 0 }}
-            />
-            
-            {/* Drawer */}
-            <motion.div
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-              className="fixed top-0 right-0 bottom-0 w-full max-w-sm bg-white/95 backdrop-blur-2xl z-50 md:hidden shadow-2xl flex flex-col rounded-none sm:rounded-l-[2.5rem] border-l border-white/40 overflow-hidden"
-            >
-              <div className="p-4 sm:p-6 flex justify-between items-center border-b border-indigo-50">
-                <div className="flex items-center gap-2 flex-shrink-0">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl overflow-hidden shadow-lg shadow-indigo-100 border-2 border-white bg-white p-1">
-                    <img 
-                      src="/LOGOIS.png" 
-                      alt="Logo" 
-                      className="w-full h-full object-contain" 
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </div>
-                  <div className="flex flex-col -gap-1">
-                    <span className="font-black text-indigo-950 text-lg sm:text-xl leading-none tracking-tighter">Zahra</span>
-                    <span className="text-xs font-bold text-indigo-400 uppercase tracking-[0.15em] leading-none">Daycare</span>
-                  </div>
+      {mobileMenuOpen && (
+        <>
+          {/* Backdrop */}
+          <div
+            className="fixed inset-0 bg-black/40 z-30 md:hidden"
+            onClick={() => setMobileMenuOpen(false)}
+            aria-hidden="true"
+          />
+
+          {/* Drawer */}
+          <motion.div
+            initial={{ x: '100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '100%' }}
+            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+            className="fixed top-0 right-0 bottom-0 w-80 max-w-full bg-white z-40 md:hidden shadow-2xl overflow-y-auto"
+          >
+            {/* Header */}
+            <div className="sticky top-0 bg-white border-b border-indigo-100 p-4 sm:p-6 flex justify-between items-center">
+              <div className="flex items-center gap-2">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white rounded-lg border-2 border-indigo-100 overflow-hidden">
+                  <img 
+                    src="/LOGOIS.png" 
+                    alt="Logo"
+                    className="w-full h-full object-contain p-1"
+                    loading="lazy"
+                    decoding="async"
+                  />
                 </div>
-                <button 
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-indigo-50 flex items-center justify-center text-indigo-950 active:scale-90 transition-all flex-shrink-0"
-                  aria-label="Close menu"
+                <div className="flex flex-col gap-0">
+                  <span className="font-black text-indigo-950 text-base">Zahra</span>
+                  <span className="text-xs font-bold text-indigo-500 uppercase">Daycare</span>
+                </div>
+              </div>
+              <button
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-10 h-10 rounded-lg bg-indigo-100 flex items-center justify-center text-indigo-950 hover:bg-indigo-200"
+                aria-label="Close menu"
+              >
+                <X size={24} />
+              </button>
+            </div>
+
+            {/* Menu Items */}
+            <div className="px-4 sm:px-6 py-6 flex flex-col gap-3">
+              {navLinks.map((link) => (
+                <button
+                  key={link.name}
+                  onClick={() => handleNavClick(link.href)}
+                  className="text-left px-4 py-4 text-lg font-black text-indigo-950 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all uppercase tracking-wide"
                 >
-                  <X size={20} className="sm:w-6 sm:h-6" />
+                  {link.name}
                 </button>
-              </div>
+              ))}
+            </div>
 
-              <div className="flex-1 overflow-y-auto p-4 sm:p-6 flex flex-col gap-2 sm:gap-4">
-                {navLinks.map((link, i) => (
-                  <motion.button 
-                    key={link.name} 
-                    initial={{ opacity: 0, x: 30 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.1 + i * 0.07, type: 'spring' }}
-                    onClick={() => handleNavClick(link.href)}
-                    className="text-xl sm:text-2xl font-black text-indigo-950 hover:text-indigo-600 active:scale-95 transition-all flex items-center justify-between group py-2 sm:py-3 text-left"
-                  >
-                    <span className="tracking-tighter">{link.name}</span>
-                    <motion.div 
-                      className="w-2 h-2 sm:w-3 sm:h-3 bg-indigo-600 rounded-full shadow-lg shadow-indigo-200 flex-shrink-0"
-                    />
-                  </motion.button>
-                ))}
-              </div>
-
-              <div className="p-4 sm:p-6 bg-indigo-50/50 border-t border-indigo-100">
-                <motion.button 
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5 }}
-                  onClick={() => handleNavClick('#contact')}
-                  className="w-full py-4 sm:py-5 bg-indigo-600 text-white rounded-2xl font-black text-lg sm:text-xl shadow-2xl shadow-indigo-200 active:scale-95 transition-all uppercase tracking-widest"
-                >
-                  Join Us
-                </motion.button>
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
-    </motion.nav>
+            {/* Footer Button */}
+            <div className="sticky bottom-0 bg-white border-t border-indigo-100 p-4 sm:p-6">
+              <button
+                onClick={() => handleNavClick('#contact')}
+                className="w-full px-6 py-4 bg-indigo-600 text-white rounded-lg font-black text-lg hover:bg-indigo-700 transition-all uppercase"
+              >
+                Join Us
+              </button>
+            </div>
+          </motion.div>
+        </>
+      )}
+    </>
   );
 };
 
