@@ -22,15 +22,18 @@ export const Hero = () => {
 
   // Generate random bird animations
   const birdAnimations = useMemo(() => {
-    const createBirdAnimation = () => ({
-      duration: Math.random() * 6 + 8,
-      delay: Math.random() * 5,
-      startX: Math.random() > 0.5 ? -300 : window.innerWidth,
-      endX: Math.random() > 0.5 ? window.innerWidth : -300,
-      scaleX: Math.random() > 0.5 ? 1 : -1,
-      topPosition: Math.random() * 20 + 10,
+    const createBirdAnimation = (direction: 'ltr' | 'rtl') => ({
+      duration: Math.random() * 8 + 12, // Slower: 12-20 seconds
+      delay: Math.random() * 3,
+      startX: direction === 'ltr' ? -150 : window.innerWidth,
+      endX: direction === 'ltr' ? window.innerWidth : -150,
+      scaleX: direction === 'rtl' ? -1 : 1,
+      topPosition: Math.random() * 25 + 8,
     });
-    return [createBirdAnimation(), createBirdAnimation()];
+    return [
+      createBirdAnimation('ltr'),  // Left to right
+      createBirdAnimation('rtl'),  // Right to left
+    ];
   }, []);
 
   return (
@@ -164,7 +167,7 @@ export const Hero = () => {
         </div>
       </motion.div>
 
-      {/* Flying Bird Animation - Multiple birds with random paths */}
+      {/* Flying Bird Animation - Left to Right & Right to Left simultaneously */}
       {birdAnimations.map((bird, idx) => (
         <motion.div
           key={idx}
@@ -177,18 +180,18 @@ export const Hero = () => {
           initial={{ x: bird.startX, opacity: 0 }}
           animate={{
             x: bird.endX,
-            opacity: [0, 1, 1, 0],
-            y: [0, -40 + Math.random() * 20, 0],
+            opacity: [0, 0.8, 0.8, 0],
+            y: [0, -25 + Math.random() * 15, 0],
           }}
           transition={{
             duration: bird.duration,
             delay: bird.delay,
             repeat: Infinity,
-            repeatDelay: 2,
+            repeatDelay: 3,
             ease: 'easeInOut',
           }}
         >
-          <div style={{ width: '280px', height: '280px', marginLeft: '-140px' }}>
+          <div style={{ width: '180px', height: '180px', marginLeft: '-90px' }}>
             <dotlottie-wc 
               src="https://lottie.host/445dd3d9-ed11-4553-8be0-59b374de9c4b/cQbie0Hqr4.lottie" 
               style={{ width: '100%', height: '100%' }} 
