@@ -60,10 +60,26 @@ const Navbar = () => {
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
+      // Close mobile menu on scroll
+      if (mobileMenuOpen && window.scrollY > 100) {
+        setMobileMenuOpen(false);
+      }
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [mobileMenuOpen]);
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [mobileMenuOpen]);
 
   const navLinks = [
     { name: 'About', href: '#about' },
@@ -73,28 +89,36 @@ const Navbar = () => {
     { name: 'Contact', href: '#contact' },
   ];
 
+  const handleNavClick = (href: string) => {
+    setMobileMenuOpen(false);
+    const element = document.querySelector(href);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   return (
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
       style={{ translateZ: 0 }}
-      className={`fixed top-0 left-0 w-full z-50 px-6 transition-all duration-500 will-change-transform ${
+      className={`fixed top-0 left-0 w-full z-50 px-3 sm:px-6 transition-all duration-500 will-change-transform ${
         scrolled ? 'py-1' : 'py-2'
       }`}
     >
-      <div className={`max-w-7xl mx-auto rounded-[2.5rem] transition-all duration-700 ${
-        scrolled ? 'glass px-8 py-2 shadow-[0_10px_40px_rgba(79,70,229,0.15)] bg-white/70 backdrop-blur-xl border border-white/40' : 'px-6 py-2'
+      <div className={`max-w-7xl mx-auto rounded-xl sm:rounded-[2.5rem] transition-all duration-700 ${
+        scrolled ? 'glass px-4 sm:px-8 py-2 shadow-[0_10px_40px_rgba(79,70,229,0.15)] bg-white/70 backdrop-blur-xl border border-white/40' : 'px-3 sm:px-6 py-2'
       }`}>
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center gap-2 sm:gap-4">
           <a 
             href="/" 
-            className="flex items-center gap-3 group cursor-pointer"
+            className="flex items-center gap-2 sm:gap-3 group cursor-pointer flex-shrink-0"
             aria-label="Daycare Center Home"
           >
             <motion.div 
               whileHover={{ rotate: 15, scale: 1.1 }}
-              className="w-16 h-16 bg-white rounded-[1.5rem] flex items-center justify-center shadow-2xl shadow-indigo-100 overflow-hidden border-2 border-indigo-50"
+              className="w-12 h-12 sm:w-16 sm:h-16 bg-white rounded-lg sm:rounded-[1.5rem] flex items-center justify-center shadow-2xl shadow-indigo-100 overflow-hidden border-2 border-indigo-50"
             >
               <img 
                 src="/LOGOIS.png" 
@@ -104,51 +128,47 @@ const Navbar = () => {
                 decoding="async"
               />
             </motion.div>
-            <div className="flex flex-col -gap-1">
-              <span className="text-xl font-black text-indigo-950 tracking-tighter leading-none">
+            <div className="flex flex-col -gap-1 hidden xs:flex">
+              <span className="text-base sm:text-xl font-black text-indigo-950 tracking-tighter leading-none">
                 <ShinyText text="Zahra" speed={3} />
               </span>
-              <span className="text-xs font-bold text-indigo-400 uppercase tracking-[0.2em] leading-none">
+              <span className="text-xs font-bold text-indigo-400 uppercase tracking-[0.15em] leading-none">
                 Daycare
               </span>
             </div>
           </a>
           
           {/* Desktop Menu */}
-          <div className="hidden md:flex gap-12 items-center">
+          <div className="hidden md:flex gap-8 lg:gap-12 items-center flex-1 justify-end">
             {navLinks.map((link) => (
-              <a 
+              <button 
                 key={link.name} 
-                href={link.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  document.querySelector(link.href)?.scrollIntoView({ behavior: 'smooth' });
-                }}
-                className="text-indigo-950 hover:text-indigo-600 font-black transition-all relative group py-2 text-sm uppercase tracking-[0.15em]"
+                onClick={() => handleNavClick(link.href)}
+                className="text-indigo-950 hover:text-indigo-600 font-black transition-all relative group py-2 text-xs lg:text-sm uppercase tracking-[0.15em]"
               >
                 <ShinyText text={link.name} speed={5} />
                 <span className="absolute -bottom-1 left-0 w-0 h-1 bg-indigo-600 transition-all duration-500 ease-out group-hover:w-full rounded-full" />
-              </a>
+              </button>
             ))}
             <motion.button 
               whileHover={{ scale: 1.05, y: -2, boxShadow: "0 20px 40px rgba(79, 70, 229, 0.3)" }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-              className="px-10 py-4 bg-indigo-600 text-white rounded-full font-black shadow-xl shadow-indigo-200 transition-all text-sm uppercase tracking-widest"
+              onClick={() => handleNavClick('#contact')}
+              className="px-8 lg:px-10 py-3 lg:py-4 bg-indigo-600 text-white rounded-full font-black shadow-xl shadow-indigo-200 transition-all text-xs lg:text-sm uppercase tracking-widest whitespace-nowrap"
             >
               Join Us
             </motion.button>
           </div>
 
           {/* Mobile Menu Toggle */}
-          <div className="md:hidden flex items-center gap-4">
+          <div className="md:hidden flex items-center">
             <button 
-              className="w-12 h-12 rounded-2xl bg-indigo-50 flex items-center justify-center text-indigo-950 transition-all hover:bg-indigo-100 active:scale-90"
+              className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-2xl bg-indigo-50 flex items-center justify-center text-indigo-950 transition-all hover:bg-indigo-100 active:scale-90 flex-shrink-0"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileMenuOpen}
             >
-              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              {mobileMenuOpen ? <X size={20} className="sm:w-6 sm:h-6" /> : <Menu size={20} className="sm:w-6 sm:h-6" />}
             </button>
           </div>
         </div>
@@ -164,7 +184,8 @@ const Navbar = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setMobileMenuOpen(false)}
-              className="fixed inset-0 bg-indigo-950/60 backdrop-blur-md z-[60] md:hidden"
+              className="fixed inset-0 bg-indigo-950/50 backdrop-blur-sm z-40 md:hidden"
+              style={{ top: 0 }}
             />
             
             {/* Drawer */}
@@ -173,11 +194,11 @@ const Navbar = () => {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-              className="fixed top-4 right-4 bottom-4 w-[85%] max-w-sm bg-white/90 backdrop-blur-2xl z-[70] md:hidden shadow-[0_20px_80px_rgba(0,0,0,0.3)] flex flex-col rounded-[2.5rem] border border-white/40 overflow-hidden"
+              className="fixed top-0 right-0 bottom-0 w-full max-w-sm bg-white/95 backdrop-blur-2xl z-50 md:hidden shadow-2xl flex flex-col rounded-none sm:rounded-l-[2.5rem] border-l border-white/40 overflow-hidden"
             >
-              <div className="p-8 flex justify-between items-center border-b border-indigo-50/50">
-                <div className="flex items-center gap-3">
-                  <div className="w-14 h-14 rounded-2xl overflow-hidden shadow-lg shadow-indigo-100 border-2 border-white bg-white p-1">
+              <div className="p-4 sm:p-6 flex justify-between items-center border-b border-indigo-50">
+                <div className="flex items-center gap-2 flex-shrink-0">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl overflow-hidden shadow-lg shadow-indigo-100 border-2 border-white bg-white p-1">
                     <img 
                       src="/LOGOIS.png" 
                       alt="Logo" 
@@ -187,54 +208,44 @@ const Navbar = () => {
                     />
                   </div>
                   <div className="flex flex-col -gap-1">
-                    <span className="font-black text-indigo-950 text-2xl leading-none tracking-tighter">Zahra</span>
-                    <span className="text-xs font-bold text-indigo-400 uppercase tracking-[0.2em] leading-none">Daycare</span>
+                    <span className="font-black text-indigo-950 text-lg sm:text-xl leading-none tracking-tighter">Zahra</span>
+                    <span className="text-xs font-bold text-indigo-400 uppercase tracking-[0.15em] leading-none">Daycare</span>
                   </div>
                 </div>
                 <button 
                   onClick={() => setMobileMenuOpen(false)}
-                  className="w-12 h-12 rounded-2xl bg-indigo-50 flex items-center justify-center text-indigo-950 active:scale-90 transition-all"
+                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-indigo-50 flex items-center justify-center text-indigo-950 active:scale-90 transition-all flex-shrink-0"
                   aria-label="Close menu"
                 >
-                  <X size={24} />
+                  <X size={20} className="sm:w-6 sm:h-6" />
                 </button>
               </div>
 
-              <div className="flex-1 overflow-y-auto p-8 flex flex-col gap-4">
+              <div className="flex-1 overflow-y-auto p-4 sm:p-6 flex flex-col gap-2 sm:gap-4">
                 {navLinks.map((link, i) => (
-                  <motion.a 
+                  <motion.button 
                     key={link.name} 
-                    href={link.href}
                     initial={{ opacity: 0, x: 30 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.1 + i * 0.07, type: 'spring' }}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setMobileMenuOpen(false);
-                      document.querySelector(link.href)?.scrollIntoView({ behavior: 'smooth' });
-                    }}
-                    className="text-3xl font-black text-indigo-950 hover:text-indigo-600 transition-all flex items-center justify-between group py-2"
+                    onClick={() => handleNavClick(link.href)}
+                    className="text-xl sm:text-2xl font-black text-indigo-950 hover:text-indigo-600 active:scale-95 transition-all flex items-center justify-between group py-2 sm:py-3 text-left"
                   >
                     <span className="tracking-tighter">{link.name}</span>
                     <motion.div 
-                      initial={{ scale: 0, opacity: 0 }}
-                      whileHover={{ scale: 1, opacity: 1 }}
-                      className="w-3 h-3 bg-indigo-600 rounded-full shadow-lg shadow-indigo-200"
+                      className="w-2 h-2 sm:w-3 sm:h-3 bg-indigo-600 rounded-full shadow-lg shadow-indigo-200 flex-shrink-0"
                     />
-                  </motion.a>
+                  </motion.button>
                 ))}
               </div>
 
-              <div className="p-8 bg-indigo-50/30">
+              <div className="p-4 sm:p-6 bg-indigo-50/50 border-t border-indigo-100">
                 <motion.button 
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5 }}
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                  className="w-full py-5 bg-indigo-600 text-white rounded-[2rem] font-black text-xl shadow-2xl shadow-indigo-200 active:scale-95 transition-all uppercase tracking-widest"
+                  onClick={() => handleNavClick('#contact')}
+                  className="w-full py-4 sm:py-5 bg-indigo-600 text-white rounded-2xl font-black text-lg sm:text-xl shadow-2xl shadow-indigo-200 active:scale-95 transition-all uppercase tracking-widest"
                 >
                   Join Us
                 </motion.button>
