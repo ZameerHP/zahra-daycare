@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useMemo } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'motion/react';
 import { Cloud, Sun, Trees as Tree, Sparkles, Flower } from 'lucide-react';
 import ShinyText from './ShinyText';
@@ -19,6 +19,19 @@ export const Hero = () => {
   const smoothContentY = useSpring(contentY, springConfig);
 
   const headline = "A Safe and Happy Place for Your Child to Learn and Grow";
+
+  // Generate random bird animations
+  const birdAnimations = useMemo(() => {
+    const createBirdAnimation = () => ({
+      duration: Math.random() * 6 + 8,
+      delay: Math.random() * 5,
+      startX: Math.random() > 0.5 ? -300 : window.innerWidth,
+      endX: Math.random() > 0.5 ? window.innerWidth : -300,
+      scaleX: Math.random() > 0.5 ? 1 : -1,
+      topPosition: Math.random() * 20 + 10,
+    });
+    return [createBirdAnimation(), createBirdAnimation()];
+  }, []);
 
   return (
     <section 
@@ -150,6 +163,41 @@ export const Hero = () => {
           </Reveal>
         </div>
       </motion.div>
+
+      {/* Flying Bird Animation - Multiple birds with random paths */}
+      {birdAnimations.map((bird, idx) => (
+        <motion.div
+          key={idx}
+          className="absolute z-15 pointer-events-none will-change-transform"
+          style={{
+            top: `${bird.topPosition}%`,
+            scaleX: bird.scaleX,
+            translateZ: 0,
+          }}
+          initial={{ x: bird.startX, opacity: 0 }}
+          animate={{
+            x: bird.endX,
+            opacity: [0, 1, 1, 0],
+            y: [0, -40 + Math.random() * 20, 0],
+          }}
+          transition={{
+            duration: bird.duration,
+            delay: bird.delay,
+            repeat: Infinity,
+            repeatDelay: 2,
+            ease: 'easeInOut',
+          }}
+        >
+          <div style={{ width: '280px', height: '280px', marginLeft: '-140px' }}>
+            <dotlottie-wc 
+              src="https://lottie.host/445dd3d9-ed11-4553-8be0-59b374de9c4b/cQbie0Hqr4.lottie" 
+              style={{ width: '100%', height: '100%' }} 
+              autoplay 
+              loop
+            />
+          </div>
+        </motion.div>
+      ))}
 
       {/* Floating Elements - Removed for performance optimization */}
     </section>
