@@ -104,9 +104,9 @@ export const Hero = () => {
           <div style={{ width: '140px', height: '140px', filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.1))' }}>
             <dotlottie-wc 
               src="https://lottie.host/b4e6ce8d-2921-4c06-ac6a-be59ec8ab072/G4ibccSRTb.lottie" 
+              autoPlay={true}
+              loop={true}
               style={{ width: '100%', height: '100%' }} 
-              autoplay 
-              loop
             />
           </div>
         </div>
@@ -116,9 +116,9 @@ export const Hero = () => {
           <div style={{ width: '160px', height: '160px', filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.1))' }}>
             <dotlottie-wc 
               src="https://lottie.host/5b8a6921-78d3-48f3-a3dc-0a926ec5278b/UiO3NjMdQS.lottie" 
+              autoPlay={true}
+              loop={true}
               style={{ width: '100%', height: '100%' }} 
-              autoplay 
-              loop
             />
           </div>
         </div>
@@ -128,9 +128,9 @@ export const Hero = () => {
           <div style={{ width: '130px', height: '130px', filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.08))' }}>
             <dotlottie-wc 
               src="https://lottie.host/b4e6ce8d-2921-4c06-ac6a-be59ec8ab072/G4ibccSRTb.lottie" 
+              autoPlay={true}
+              loop={true}
               style={{ width: '100%', height: '100%' }} 
-              autoplay 
-              loop
             />
           </div>
         </div>
@@ -140,9 +140,9 @@ export const Hero = () => {
           <div style={{ width: '150px', height: '150px', filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.08))' }}>
             <dotlottie-wc 
               src="https://lottie.host/5b8a6921-78d3-48f3-a3dc-0a926ec5278b/UiO3NjMdQS.lottie" 
+              autoPlay={true}
+              loop={true}
               style={{ width: '100%', height: '100%' }} 
-              autoplay 
-              loop
             />
           </div>
         </div>
@@ -152,9 +152,9 @@ export const Hero = () => {
           <div style={{ width: '145px', height: '145px', filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.09))' }}>
             <dotlottie-wc 
               src="https://lottie.host/b4e6ce8d-2921-4c06-ac6a-be59ec8ab072/G4ibccSRTb.lottie" 
+              autoPlay={true}
+              loop={true}
               style={{ width: '100%', height: '100%' }} 
-              autoplay 
-              loop
             />
           </div>
         </div>
@@ -164,9 +164,9 @@ export const Hero = () => {
           <div style={{ width: '135px', height: '135px', filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.08))' }}>
             <dotlottie-wc 
               src="https://lottie.host/5b8a6921-78d3-48f3-a3dc-0a926ec5278b/UiO3NjMdQS.lottie" 
+              autoPlay={true}
+              loop={true}
               style={{ width: '100%', height: '100%' }} 
-              autoplay 
-              loop
             />
           </div>
         </div>
@@ -250,9 +250,9 @@ export const Hero = () => {
           <div style={{ width: '180px', height: '180px', marginLeft: '-90px' }}>
             <dotlottie-wc 
               src="https://lottie.host/445dd3d9-ed11-4553-8be0-59b374de9c4b/cQbie0Hqr4.lottie" 
+              autoPlay={true}
+              loop={true}
               style={{ width: '100%', height: '100%' }} 
-              autoplay 
-              loop
             />
           </div>
         </motion.div>
