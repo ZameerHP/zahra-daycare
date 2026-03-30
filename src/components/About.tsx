@@ -39,7 +39,7 @@ export const About = () => {
     <section 
       id="about" 
       ref={containerRef}
-      className="relative py-2 sm:py-4 lg:py-6 bg-[#f8fafc] overflow-hidden flex items-center"
+      className="relative py-2 sm:py-4 lg:py-6 bg-[#f8fafc] overflow-hidden flex items-center scroll-mt-24"
       style={{ contentVisibility: 'auto', containIntrinsicSize: '0 500px' }}
     >
       {/* Background Glows */}

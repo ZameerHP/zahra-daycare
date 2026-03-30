@@ -103,14 +103,14 @@ const Navbar = () => {
       animate={{ y: 0 }}
       transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
       style={{ translateZ: 0 }}
-      className={`fixed top-0 left-0 w-full z-50 px-3 sm:px-6 transition-all duration-500 will-change-transform ${
+      className={`fixed top-0 left-0 w-full z-50 px-2 sm:px-6 transition-all duration-500 will-change-transform ${
         scrolled ? 'py-1' : 'py-2'
       }`}
     >
-      <div className={`max-w-7xl mx-auto rounded-xl sm:rounded-[2.5rem] transition-all duration-700 ${
-        scrolled ? 'glass px-4 sm:px-8 py-2 shadow-[0_10px_40px_rgba(79,70,229,0.15)] bg-white/70 backdrop-blur-xl border border-white/40' : 'px-3 sm:px-6 py-2'
+      <div className={`max-w-7xl mx-auto rounded-lg sm:rounded-[2.5rem] transition-all duration-700 ${
+        scrolled ? 'glass px-3 sm:px-8 py-2 shadow-[0_10px_40px_rgba(79,70,229,0.15)] bg-white/70 backdrop-blur-xl border border-white/40' : 'px-3 sm:px-6 py-2'
       }`}>
-        <div className="flex justify-between items-center gap-2 sm:gap-4">
+        <div className="flex justify-between items-center min-h-16 sm:min-h-20 gap-3 sm:gap-4">
           <a 
             href="/" 
             className="flex items-center gap-2 sm:gap-3 group cursor-pointer flex-shrink-0"
@@ -118,57 +118,57 @@ const Navbar = () => {
           >
             <motion.div 
               whileHover={{ rotate: 15, scale: 1.1 }}
-              className="w-12 h-12 sm:w-16 sm:h-16 bg-white rounded-lg sm:rounded-[1.5rem] flex items-center justify-center shadow-2xl shadow-indigo-100 overflow-hidden border-2 border-indigo-50"
+              className="w-14 h-14 sm:w-16 sm:h-16 bg-white rounded-lg sm:rounded-[1.5rem] flex items-center justify-center shadow-2xl shadow-indigo-100 overflow-hidden border-2 border-indigo-50 flex-shrink-0"
             >
               <img 
                 src="/LOGOIS.png" 
                 alt="Daycare Logo"
-                className="w-full h-full object-contain p-1.5"
+                className="w-full h-full object-contain p-1"
                 loading="lazy"
                 decoding="async"
               />
             </motion.div>
-            <div className="flex flex-col -gap-1 sm:flex">
-              <span className="text-sm sm:text-xl font-black text-indigo-950 tracking-tighter leading-none">
-                <ShinyText text="Zahra" speed={3} />
+            <div className="flex flex-col gap-0 hidden sm:flex flex-shrink-0">
+              <span className="text-base sm:text-lg font-black text-indigo-950 tracking-tighter leading-tight">
+                Zahra
               </span>
-              <span className="text-xs font-bold text-indigo-400 uppercase tracking-[0.15em] leading-none">
+              <span className="text-xs font-bold text-indigo-400 uppercase tracking-[0.1em] leading-none">
                 Daycare
               </span>
             </div>
           </a>
           
           {/* Desktop Menu */}
-          <div className="hidden md:flex gap-8 lg:gap-12 items-center flex-1 justify-end">
+          <div className="hidden md:flex gap-6 lg:gap-10 items-center flex-1 justify-end">
             {navLinks.map((link) => (
               <button 
                 key={link.name} 
                 onClick={() => handleNavClick(link.href)}
-                className="text-indigo-950 hover:text-indigo-600 font-black transition-all relative group py-2 text-xs lg:text-sm uppercase tracking-[0.15em]"
+                className="text-indigo-950 hover:text-indigo-600 font-black transition-all relative group py-2 text-xs lg:text-sm uppercase tracking-[0.12em] whitespace-nowrap"
               >
-                <ShinyText text={link.name} speed={5} />
+                {link.name}
                 <span className="absolute -bottom-1 left-0 w-0 h-1 bg-indigo-600 transition-all duration-500 ease-out group-hover:w-full rounded-full" />
               </button>
             ))}
             <motion.button 
-              whileHover={{ scale: 1.05, y: -2, boxShadow: "0 20px 40px rgba(79, 70, 229, 0.3)" }}
+              whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => handleNavClick('#contact')}
-              className="px-8 lg:px-10 py-3 lg:py-4 bg-indigo-600 text-white rounded-full font-black shadow-xl shadow-indigo-200 transition-all text-xs lg:text-sm uppercase tracking-widest whitespace-nowrap"
+              className="px-8 lg:px-10 py-3 lg:py-3 bg-indigo-600 text-white rounded-full font-black shadow-xl shadow-indigo-200 transition-all text-xs lg:text-sm uppercase tracking-widest whitespace-nowrap flex-shrink-0"
             >
               Join Us
             </motion.button>
           </div>
 
           {/* Mobile Menu Toggle */}
-          <div className="md:hidden flex items-center">
+          <div className="md:hidden flex items-center flex-shrink-0">
             <button 
-              className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-2xl bg-indigo-50 flex items-center justify-center text-indigo-950 transition-all hover:bg-indigo-100 active:scale-90 flex-shrink-0"
+              className="w-11 h-11 sm:w-12 sm:h-12 rounded-lg bg-indigo-50 flex items-center justify-center text-indigo-950 transition-all hover:bg-indigo-100 active:scale-90"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileMenuOpen}
             >
-              {mobileMenuOpen ? <X size={20} className="sm:w-6 sm:h-6" /> : <Menu size={20} className="sm:w-6 sm:h-6" />}
+              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
         </div>

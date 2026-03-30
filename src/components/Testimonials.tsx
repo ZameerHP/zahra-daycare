@@ -80,7 +80,7 @@ export const Testimonials = () => {
   };
 
   return (
-    <section id="parents" className="py-6 sm:py-8 bg-[#f8fafc] relative overflow-hidden" style={{ contentVisibility: 'auto', containIntrinsicSize: '0 400px' }}>
+    <section id="parents" className="py-6 sm:py-8 bg-[#f8fafc] relative overflow-hidden scroll-mt-24" style={{ contentVisibility: 'auto', containIntrinsicSize: '0 400px' }}>
       {/* Decorative Elements */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
         <div className="absolute top-[-10%] left-[-5%] w-[40%] h-[40%] bg-indigo-100/30 rounded-full blur-[100px]" />

@@ -58,7 +58,7 @@ export const WhyChooseUs = () => {
   ];
 
   return (
-    <section id="why-us" className="py-8 sm:py-10 bg-white relative overflow-hidden" style={{ contentVisibility: 'auto', containIntrinsicSize: '0 600px' }}>
+    <section id="why-us" className="py-8 sm:py-10 bg-white relative overflow-hidden scroll-mt-24" style={{ contentVisibility: 'auto', containIntrinsicSize: '0 600px' }}>
       {/* Subtle Background Elements */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden opacity-20">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-blue-100 blur-3xl" />

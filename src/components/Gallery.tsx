@@ -211,7 +211,7 @@ export const Gallery = () => {
   }, [selectedItem]);
 
   return (
-    <section id="gallery" className="py-20">
+    <section id="gallery" className="py-20 scroll-mt-24">
       <div className="max-w-7xl mx-auto px-6">
         
         {/* HEADING - MATCHING ABOUT SECTION */}
