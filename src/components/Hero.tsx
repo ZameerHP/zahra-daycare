@@ -1,6 +1,6 @@
 import React, { useRef, useMemo } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'motion/react';
-import { Cloud, Sun, Trees as Tree, Sparkles, Flower } from 'lucide-react';
+import { Cloud, Sun, Sparkles, Flower } from 'lucide-react';
 import ShinyText from './ShinyText';
 import { Reveal } from './Reveal';
 
@@ -70,49 +70,60 @@ export const Hero = () => {
         {/* Static cloud background */}
       </div>
 
-      {/* Middle Layer - Hills / Greenery */}
+      {/* Ground Layer - Animated Flowers */}
       <motion.div 
         style={{ y: smoothHillsY, translateZ: 0 }}
-        className="absolute bottom-0 left-0 w-full h-[40vh] sm:h-[60vh] z-10 will-change-transform"
+        className="absolute bottom-0 left-0 w-full h-[45vh] sm:h-[70vh] z-10 will-change-transform"
       >
-        <div className="absolute inset-0 bg-gradient-to-t from-[#4ade80] to-transparent opacity-30" />
-        <div className="absolute top-0 left-0 w-full h-12 bg-gradient-to-b from-black/5 to-transparent pointer-events-none" />
-        <svg viewBox="0 0 1440 400" className="absolute bottom-0 w-full h-full preserve-3d drop-shadow-[0_-5px_15px_rgba(0,0,0,0.05)]" preserveAspectRatio="none">
-          <defs>
-            <linearGradient id="hill1" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor="#86efac" />
-              <stop offset="100%" stopColor="#4ade80" />
-            </linearGradient>
-            <linearGradient id="hill2" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor="#4ade80" />
-              <stop offset="100%" stopColor="#22c55e" />
-            </linearGradient>
-          </defs>
-          <path 
-            fill="url(#hill1)" 
-            fillOpacity="0.9" 
-            d="M0,224L60,213.3C120,203,240,181,360,192C480,203,600,245,720,245.3C840,245,960,203,1080,181.3C1200,160,1320,160,1380,160L1440,160L1440,400L1380,400C1320,400,1200,400,1080,400C960,400,840,400,720,400C600,400,480,400,360,400C240,400,120,400,60,400L0,400Z"
-          ></path>
-          <path 
-            fill="url(#hill2)" 
-            fillOpacity="1" 
-            d="M0,320L60,304C120,288,240,256,360,250.7C480,245,600,267,720,277.3C840,288,960,288,1080,272C1200,256,1320,224,1380,208L1440,192L1440,400L1380,400C1320,400,1200,400,1080,400C960,400,840,400,720,400C600,400,480,400,360,400C240,400,120,400,60,400L0,400Z"
-          ></path>
-        </svg>
+        {/* Ground gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#86efac] via-[#4ade80] to-transparent opacity-40" />
         
-        {/* Playground Elements Only - removed animated flowers/butterflies for performance */}
-        <div className="absolute bottom-8 sm:bottom-16 left-[10%] sm:left-[15%] flex gap-8 sm:gap-16 items-end">
-          <Tree className="text-green-800 opacity-70 drop-shadow-md animate-soft-float" size={60} sm:size={100} />
-          <motion.div 
-            animate={{ rotate: [-5, 5, -5] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            className="origin-top will-change-transform"
-            style={{ translateZ: 0 }}
-          >
-            <div className="w-1 h-20 sm:w-1.5 sm:h-32 bg-gray-400 mx-auto rounded-full" />
-            <div className="w-10 h-2 sm:w-16 sm:h-3 bg-orange-400 rounded-full shadow-lg" />
-          </motion.div>
-          <Tree className="text-green-700 opacity-60 hidden sm:block drop-shadow-md animate-soft-float" style={{ animationDelay: '1s' }} size={70} />
+        {/* Decorative Flowers - Left side */}
+        <div className="absolute bottom-12 sm:bottom-20 left-[5%] sm:left-[8%] pointer-events-none">
+          <div style={{ width: '200px', height: '200px', filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.1))' }}>
+            <dotlottie-wc 
+              src="https://lottie.host/b4e6ce8d-2921-4c06-ac6a-be59ec8ab072/G4ibccSRTb.lottie" 
+              style={{ width: '100%', height: '100%' }} 
+              autoplay 
+              loop
+            />
+          </div>
+        </div>
+
+        {/* Decorative Flowers - Right side */}
+        <div className="absolute bottom-16 sm:bottom-28 right-[8%] sm:right-[12%] pointer-events-none">
+          <div style={{ width: '220px', height: '220px', filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.1))' }}>
+            <dotlottie-wc 
+              src="https://lottie.host/5b8a6921-78d3-48f3-a3dc-0a926ec5278b/UiO3NjMdQS.lottie" 
+              style={{ width: '100%', height: '100%' }} 
+              autoplay 
+              loop
+            />
+          </div>
+        </div>
+
+        {/* Additional Flowers - Center left */}
+        <div className="absolute bottom-20 sm:bottom-32 left-[35%] pointer-events-none opacity-80">
+          <div style={{ width: '160px', height: '160px', filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.08))' }}>
+            <dotlottie-wc 
+              src="https://lottie.host/b4e6ce8d-2921-4c06-ac6a-be59ec8ab072/G4ibccSRTb.lottie" 
+              style={{ width: '100%', height: '100%' }} 
+              autoplay 
+              loop
+            />
+          </div>
+        </div>
+
+        {/* Additional Flowers - Center right */}
+        <div className="absolute bottom-24 sm:bottom-36 right-[32%] pointer-events-none opacity-75">
+          <div style={{ width: '190px', height: '190px', filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.08))' }}>
+            <dotlottie-wc 
+              src="https://lottie.host/5b8a6921-78d3-48f3-a3dc-0a926ec5278b/UiO3NjMdQS.lottie" 
+              style={{ width: '100%', height: '100%' }} 
+              autoplay 
+              loop
+            />
+          </div>
         </div>
       </motion.div>
 
