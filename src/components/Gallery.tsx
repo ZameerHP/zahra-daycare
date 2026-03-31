@@ -94,7 +94,6 @@ const galleryItems: GalleryItem[] = [
   { id: 5, type: 'video', category: ['Toddler Room'], src: '/VIDEOC.mp4', title: 'Toddler Fun' },
   { id: 6, type: 'video', category: ['Outdoor Play'], src: '/VIDEOD.mp4', title: 'Playground Adventures' },
   { id: 7, type: 'video', category: ['Creative Arts'], src: '/VIDEOE.mp4', title: 'Arts & Crafts' },
-  { id: 8, type: 'video', category: ['Special Events'], src: '/VIDEOF.mp4', title: 'Special Celebration' },
   { id: 9, type: 'video', category: ['Pre School Room'], src: '/VIDEOG.mp4', title: 'Learning Time' },
   { id: 10, type: 'video', category: ['Toddler Room'], src: '/VIDEOH.mp4', title: 'Toddler Play' },
   { id: 11, type: 'video', category: ['Outdoor Play'], src: '/VIDEOI.mp4', title: 'Outdoor Games' },
