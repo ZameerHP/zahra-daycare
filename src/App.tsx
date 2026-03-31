@@ -293,19 +293,20 @@ const Footer = () => {
           </div>
 
           {/* Map Section */}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 lg:col-span-1">
             <h5 className="font-bold text-indigo-950 text-sm uppercase tracking-wider">
               <ShinyText text="Location" speed={3} />
             </h5>
-            <div className="rounded-lg overflow-hidden shadow-md border border-indigo-100 h-48 sm:h-56">
+            <div className="rounded-2xl overflow-hidden shadow-xl border-4 border-white h-48 sm:h-56 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
               <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d501.7541107671962!2d-113.42613899999999!3d53.5983778!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x53a03d1a349e472f%3A0x82d84275fd873820!2sZahra%20Daycare%20Center!5e1!3m2!1sen!2s!4v1774892990373!5m2!1sen!2s" 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d501.7541107671962!2d-113.42613899999999!3d53.5983778!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x53a03cb0df02d9e5%3A0x888d597377409ac!2s5515%20137%20Ave%20NW%2C%20Edmonton%2C%20AB%20T5A%203L4%2C%20Canada!5e1!3m2!1sen!2s!4v1774948058368!5m2!1sen!2s" 
                 width="100%" 
                 height="100%" 
                 style={{ border: 0 }}
                 allowFullScreen={true}
                 loading="lazy" 
                 referrerPolicy="no-referrer-when-downgrade"
+                title="Zahra Daycare Location"
               />
             </div>
           </div>
