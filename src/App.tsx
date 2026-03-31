@@ -153,23 +153,28 @@ const Navbar = () => {
       </motion.nav>
 
       {/* Mobile Menu Drawer */}
-      {mobileMenuOpen && (
-        <>
-          {/* Backdrop */}
-          <div
-            className="fixed inset-0 bg-black/40 z-30 md:hidden"
-            onClick={() => setMobileMenuOpen(false)}
-            aria-hidden="true"
-          />
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/40 z-30 md:hidden"
+              onClick={() => setMobileMenuOpen(false)}
+              aria-hidden="true"
+            />
 
-          {/* Drawer */}
-          <motion.div
-            initial={{ x: '100%' }}
-            animate={{ x: 0 }}
-            exit={{ x: '100%' }}
-            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className="fixed top-0 right-0 bottom-0 w-80 max-w-full bg-white z-40 md:hidden shadow-2xl overflow-y-auto"
-          >
+            {/* Drawer */}
+            <motion.div
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', damping: 30, stiffness: 350, restDelta: 0.5 }}
+              className="fixed top-0 right-0 bottom-0 w-80 max-w-full bg-white z-40 md:hidden shadow-2xl overflow-y-auto will-change-transform"
+              style={{ backfaceVisibility: 'hidden', transform: 'translateZ(0)' }}
+            >
             {/* Header */}
             <div className="sticky top-0 bg-white border-b border-indigo-100 p-4 sm:p-6 flex justify-between items-center">
               <div className="flex items-center gap-2">
@@ -221,6 +226,7 @@ const Navbar = () => {
           </motion.div>
         </>
       )}
+      </AnimatePresence>
     </>
   );
 };

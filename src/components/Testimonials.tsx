@@ -80,8 +80,8 @@ export const Testimonials = () => {
     <section id="parents" className="py-6 sm:py-8 bg-[#f8fafc] relative overflow-hidden scroll-mt-24" style={{ contentVisibility: 'auto', containIntrinsicSize: '0 400px' }}>
       {/* Decorative Elements */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
-        <div className="absolute top-[-10%] left-[-5%] w-[40%] h-[40%] bg-indigo-100/30 rounded-full blur-[100px]" />
-        <div className="absolute bottom-[-10%] right-[-5%] w-[40%] h-[40%] bg-purple-100/30 rounded-full blur-[100px]" />
+        <div className="absolute top-[-10%] left-[-5%] w-[40%] h-[40%] bg-indigo-100/30 rounded-full blur-[60px] will-change-[filter]" />
+        <div className="absolute bottom-[-10%] right-[-5%] w-[40%] h-[40%] bg-purple-100/30 rounded-full blur-[60px] will-change-[filter]" />
       </div>
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
@@ -146,7 +146,7 @@ export const Testimonials = () => {
                     scale: { duration: 0.4 }
                   }}
                   className="absolute inset-0 will-change-transform"
-                  style={{ translateZ: 0 }}
+                  style={{ backfaceVisibility: 'hidden', transform: 'translateZ(0)' }}
                 >
                   <div className="h-full bg-white rounded-[2rem] sm:rounded-[3rem] p-6 sm:p-8 shadow-[0_32px_64px_-16px_rgba(79,70,229,0.1)] border border-indigo-50 flex flex-col justify-between relative overflow-hidden group">
                     <div className="absolute top-0 right-0 p-6 sm:p-8 text-indigo-50 group-hover:text-indigo-100 transition-colors duration-500">
