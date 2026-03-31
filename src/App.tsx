@@ -97,9 +97,14 @@ const Navbar = () => {
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        transition={{ duration: 0.8 }}
-        className={`fixed top-0 left-0 right-0 z-40 px-3 sm:px-6 py-3 sm:py-4 transition-all duration-500 ${
-          scrolled ? 'bg-white shadow-lg' : ''
+        transition={{ 
+          y: { duration: 0.8 },
+          opacity: { duration: 0.3 }
+        }}
+        className={`fixed z-40 transition-all duration-700 ease-in-out will-change-[transform,backdrop-filter,background-color] ${
+          scrolled 
+            ? 'top-6 left-1/2 -translate-x-1/2 w-[94%] sm:w-[90%] lg:w-[85%] max-w-7xl rounded-[2.5rem] bg-blue-600/40 backdrop-blur-2xl border border-white/20 shadow-[0_8px_40px_rgba(37,99,235,0.25)] py-3 sm:py-4 px-8 sm:px-12' 
+            : 'top-0 left-0 right-0 w-full bg-transparent py-5 sm:py-8 px-6 sm:px-16'
         }`}
       >
         <div className="max-w-7xl mx-auto flex justify-between items-center">
@@ -115,8 +120,8 @@ const Navbar = () => {
               />
             </div>
             <div className="hidden sm:flex flex-col gap-0">
-              <span className="text-base sm:text-lg font-black text-indigo-950">Zahra</span>
-              <span className="text-xs font-bold text-indigo-500 uppercase">Daycare</span>
+              <span className={`text-base sm:text-lg font-black transition-colors duration-500 ${scrolled ? 'text-white' : 'text-indigo-950'}`}>Zahra</span>
+              <span className={`text-xs font-bold transition-colors duration-500 uppercase ${scrolled ? 'text-blue-100' : 'text-indigo-500'}`}>Daycare</span>
             </div>
           </a>
 
@@ -126,7 +131,9 @@ const Navbar = () => {
               <button
                 key={link.name}
                 onClick={() => handleNavClick(link.href)}
-                className="text-sm font-black text-indigo-950 hover:text-indigo-600 transition-colors uppercase tracking-wide"
+                className={`text-sm font-black transition-colors duration-500 uppercase tracking-wide ${
+                  scrolled ? 'text-white hover:text-blue-200' : 'text-indigo-950 hover:text-indigo-600'
+                }`}
               >
                 {link.name}
               </button>
@@ -135,7 +142,9 @@ const Navbar = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => handleNavClick('#contact')}
-              className="px-6 py-3 bg-indigo-600 text-white rounded-full font-black text-sm shadow-lg hover:shadow-xl transition-all uppercase"
+              className={`px-6 py-3 rounded-full font-black text-sm shadow-lg hover:shadow-xl transition-all uppercase ${
+                scrolled ? 'bg-white text-blue-600 hover:bg-blue-50' : 'bg-indigo-600 text-white hover:bg-indigo-700'
+              }`}
             >
               Join Us
             </motion.button>
@@ -144,7 +153,9 @@ const Navbar = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden w-11 h-11 rounded-lg bg-indigo-100 flex items-center justify-center text-indigo-950 hover:bg-indigo-200 transition-colors"
+            className={`md:hidden w-11 h-11 rounded-lg flex items-center justify-center transition-colors ${
+              scrolled ? 'bg-white/20 text-white hover:bg-white/30' : 'bg-indigo-100 text-indigo-950 hover:bg-indigo-200'
+            }`}
             aria-label="Toggle menu"
           >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
