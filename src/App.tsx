@@ -101,65 +101,65 @@ const Navbar = () => {
           y: { duration: 0.8 },
           opacity: { duration: 0.3 }
         }}
-        className={`fixed z-40 transition-all duration-700 ease-in-out will-change-[transform,backdrop-filter,background-color] ${
-          scrolled 
-            ? 'top-6 left-1/2 -translate-x-1/2 w-[94%] sm:w-[90%] lg:w-[85%] max-w-7xl rounded-[2.5rem] bg-blue-600/40 backdrop-blur-2xl border border-white/20 shadow-[0_8px_40px_rgba(37,99,235,0.25)] py-3 sm:py-4 px-8 sm:px-12' 
-            : 'top-0 left-0 right-0 w-full bg-transparent py-5 sm:py-8 px-6 sm:px-16'
+        className={`fixed left-0 right-0 z-40 transition-all duration-700 ease-in-out ${
+          scrolled ? 'top-4 px-4 sm:px-6 lg:px-8' : 'top-0 px-0'
         }`}
       >
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          {/* Logo & Brand */}
-          <a href="/" className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
-            <div className="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-lg border-2 border-indigo-100 overflow-hidden shadow-md">
-              <img 
-                src="/LOGOIS.png" 
-                alt="Daycare Logo"
-                className="w-full h-full object-contain p-1"
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
-            <div className="hidden sm:flex flex-col gap-0">
-              <span className={`text-base sm:text-lg font-black transition-colors duration-500 ${scrolled ? 'text-white' : 'text-indigo-950'}`}>Zahra</span>
-              <span className={`text-xs font-bold transition-colors duration-500 uppercase ${scrolled ? 'text-blue-100' : 'text-indigo-500'}`}>Daycare</span>
-            </div>
-          </a>
+        <div 
+          className={`max-w-7xl mx-auto transition-all duration-700 ease-in-out will-change-[backdrop-filter,background-color,border-radius,box-shadow] ${
+            scrolled 
+              ? 'rounded-[2.5rem] bg-white/80 backdrop-blur-2xl border border-white/40 shadow-[0_8px_32px_0_rgba(79,70,229,0.1)] py-3 sm:py-4 px-8 sm:px-12' 
+              : 'bg-transparent py-5 sm:py-8 px-6 sm:px-16'
+          }`}
+        >
+          <div className="flex justify-between items-center">
+            {/* Logo & Brand */}
+            <a href="/" className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-lg border-2 border-indigo-100 overflow-hidden shadow-md">
+                <img 
+                  src="/LOGOIS.png" 
+                  alt="Daycare Logo"
+                  className="w-full h-full object-contain p-1"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <div className="hidden sm:flex flex-col gap-0">
+                <span className="text-base sm:text-lg font-black text-indigo-950">Zahra</span>
+                <span className="text-xs font-bold text-indigo-500 uppercase">Daycare</span>
+              </div>
+            </a>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex gap-8 items-center">
-            {navLinks.map((link) => (
-              <button
-                key={link.name}
-                onClick={() => handleNavClick(link.href)}
-                className={`text-sm font-black transition-colors duration-500 uppercase tracking-wide ${
-                  scrolled ? 'text-white hover:text-blue-200' : 'text-indigo-950 hover:text-indigo-600'
-                }`}
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex gap-8 items-center">
+              {navLinks.map((link) => (
+                <button
+                  key={link.name}
+                  onClick={() => handleNavClick(link.href)}
+                  className="text-sm font-black text-indigo-950 hover:text-indigo-600 transition-colors uppercase tracking-wide"
+                >
+                  {link.name}
+                </button>
+              ))}
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => handleNavClick('#contact')}
+                className="px-6 py-3 bg-indigo-600 text-white rounded-full font-black text-sm shadow-lg hover:shadow-xl transition-all uppercase"
               >
-                {link.name}
-              </button>
-            ))}
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => handleNavClick('#contact')}
-              className={`px-6 py-3 rounded-full font-black text-sm shadow-lg hover:shadow-xl transition-all uppercase ${
-                scrolled ? 'bg-white text-blue-600 hover:bg-blue-50' : 'bg-indigo-600 text-white hover:bg-indigo-700'
-              }`}
-            >
-              Join Us
-            </motion.button>
-          </div>
+                Join Us
+              </motion.button>
+            </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className={`md:hidden w-11 h-11 rounded-lg flex items-center justify-center transition-colors ${
-              scrolled ? 'bg-white/20 text-white hover:bg-white/30' : 'bg-indigo-100 text-indigo-950 hover:bg-indigo-200'
-            }`}
-            aria-label="Toggle menu"
-          >
-            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden w-11 h-11 rounded-lg bg-indigo-100 flex items-center justify-center text-indigo-950 hover:bg-indigo-200 transition-colors"
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
       </motion.nav>
 
