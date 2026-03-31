@@ -58,24 +58,21 @@ export const Testimonials = () => {
 
   const variants = {
     enter: (direction: number) => ({
-      x: direction > 0 ? 100 : -100,
+      x: direction > 0 ? "100%" : "-100%",
       opacity: 0,
-      scale: 0.95,
-      filter: 'blur(10px)',
+      scale: 0.9,
     }),
     center: {
       zIndex: 1,
       x: 0,
       opacity: 1,
       scale: 1,
-      filter: 'blur(0px)',
     },
     exit: (direction: number) => ({
       zIndex: 0,
-      x: direction < 0 ? 100 : -100,
+      x: direction < 0 ? "100%" : "-100%",
       opacity: 0,
-      scale: 0.95,
-      filter: 'blur(10px)',
+      scale: 0.9,
     }),
   };
 
@@ -90,7 +87,7 @@ export const Testimonials = () => {
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
           {/* Left Side: Content */}
-          <div className="lg:w-[35%] text-center lg:text-left">
+          <div className="lg:w-[35%] flex flex-col items-center lg:items-start text-center lg:text-left">
             <Reveal x={-50}>
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-sm border border-indigo-50 mb-4 sm:mb-6">
                 <Heart className="text-rose-500" size={16} fill="currentColor" />
@@ -107,7 +104,7 @@ export const Testimonials = () => {
               </h2>
             </Reveal>
             <Reveal x={-50} delay={0.5}>
-              <p className="text-indigo-900/80 text-sm sm:text-base lg:text-lg mb-6 sm:mb-8 font-medium">
+              <p className="text-indigo-900/80 text-sm sm:text-base lg:text-lg mb-6 sm:mb-8 font-medium mx-auto lg:mx-0 max-w-[90%] sm:max-w-none">
                 <ShinyText text="Discover why families trust Zahra Daycare for their children's early education and care." speed={4} />
               </p>
             </Reveal>
@@ -134,8 +131,8 @@ export const Testimonials = () => {
 
           {/* Right Side: Slider */}
           <div className="lg:w-[65%] w-full relative">
-            <div className="relative h-[260px] sm:h-[300px] flex items-center">
-              <AnimatePresence initial={false} custom={direction} mode="wait">
+            <div className="relative h-[260px] sm:h-[300px] flex items-center overflow-hidden rounded-[2.5rem]">
+              <AnimatePresence initial={false} custom={direction} mode="popLayout">
                 <motion.div
                   key={index}
                   custom={direction}
