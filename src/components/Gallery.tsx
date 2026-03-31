@@ -43,49 +43,49 @@ const galleryItems: GalleryItem[] = [
     id: 13,
     type: 'image',
     category: ['Pre School Room', 'Creative Arts'],
-    src: '/IMG_0201.jpeg',
+    src: '/IMG_0201.webp',
     title: 'Classroom Learning Area',
   },
   {
     id: 14,
     type: 'image',
     category: ['Pre School Room'],
-    src: '/IMG_0202.jpeg',
+    src: '/IMG_0202.webp',
     title: 'Interactive Learning Station',
   },
   {
     id: 15,
     type: 'image',
     category: ['Creative Arts'],
-    src: '/IMG_0206.jpeg',
+    src: '/IMG_0206.webp',
     title: 'Art & Craft Activities',
   },
   {
     id: 16,
     type: 'image',
     category: ['Outdoor Play'],
-    src: '/IMG_0254.jpeg',
+    src: '/IMG_0254.webp',
     title: 'Outdoor Adventure Area',
   },
   {
     id: 17,
     type: 'image',
     category: ['Special Events'],
-    src: '/IMG_0255.jpeg',
+    src: '/IMG_0255.webp',
     title: 'Special Event Celebration',
   },
   {
     id: 18,
     type: 'image',
     category: ['Toddler Room'],
-    src: '/IMG_0256.jpeg',
+    src: '/IMG_0256.webp',
     title: 'Toddler Play Space',
   },
   {
     id: 19,
     type: 'image',
     category: ['Pre School Room', 'Creative Arts'],
-    src: '/IMG_0257.jpeg',
+    src: '/IMG_0257.webp',
     title: 'Creative Learning Corner',
   },
   // VIDEOS FROM ROOT
@@ -153,6 +153,8 @@ const MediaCard = memo(({ item, onClick }: any) => {
               muted
               loop
               playsInline
+              preload="none"
+              poster={item.id === 3 ? '/IMG_0254.webp' : (item.id === 4 ? '/IMG_0201.webp' : '/IMG_0257.webp')}
               onMouseEnter={(e) => e.currentTarget.play()}
               onMouseLeave={(e) => e.currentTarget.pause()}
             />
@@ -173,6 +175,8 @@ const MediaCard = memo(({ item, onClick }: any) => {
             src={item.src}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             alt={item.title}
+            loading="lazy"
+            decoding="async"
           />
         )}
         </div>

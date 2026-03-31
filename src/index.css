@@ -12,6 +12,7 @@
   /* Premium typography defaults */
   h1, h2, h3, h4, h5, h6 {
     @apply text-indigo-950 font-bold transition-all duration-300;
+    transition-property: color, background-color, transform, opacity;
   }
 
   h1 {
@@ -31,11 +32,8 @@
   }
 
   /* Smooth transitions globally */
-  * {
-    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 200ms;
-  }
+  /* Removed global * transition for performance. 
+     Transitions are now applied specifically to interactive elements. */
 }
 
 @layer utilities {
@@ -259,6 +257,7 @@
   .underline-animate {
     position: relative;
     text-decoration: none;
+    transition: color 0.3s ease;
   }
 
   .underline-animate::after {

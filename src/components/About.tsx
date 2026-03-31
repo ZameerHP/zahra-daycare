@@ -138,7 +138,7 @@ export const About = () => {
                 whileHover={{ boxShadow: "0 30px 60px rgba(79, 70, 229, 0.2)" }}
               >
                 <img 
-                  src="/outside.jpg" 
+                  src="/outside.webp" 
                   alt="Zahra Daycare Environment"
                   className="w-full h-full object-cover rounded-[28px] group-hover:scale-110 transition-transform duration-700"
                   loading="lazy"

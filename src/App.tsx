@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'motion/react';
 import { useSmoothScroll } from './hooks/useSmoothScroll';
 import { Loader } from './components/Loader';
 import { Menu, X } from 'lucide-react';
@@ -53,17 +53,17 @@ export default function App() {
   );
 }
 
-const Navbar = () => {
+const Navbar = React.memo(() => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const { scrollY } = useScroll();
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const isScrolled = latest > 50;
+    if (isScrolled !== scrolled) {
+      setScrolled(isScrolled);
+    }
+  });
 
   useEffect(() => {
     if (mobileMenuOpen) {
@@ -117,7 +117,7 @@ const Navbar = () => {
             <a href="/" className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
               <div className="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-lg border-2 border-indigo-100 overflow-hidden shadow-md">
                 <img 
-                  src="/LOGOIS.png" 
+                  src="/LOGOIS.webp" 
                   alt="Daycare Logo"
                   className="w-full h-full object-contain p-1"
                   loading="lazy"
@@ -191,7 +191,7 @@ const Navbar = () => {
               <div className="flex items-center gap-2">
                 <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white rounded-lg border-2 border-indigo-100 overflow-hidden">
                   <img 
-                    src="/LOGOIS.png" 
+                    src="/LOGOIS.webp" 
                     alt="Logo"
                     className="w-full h-full object-contain p-1"
                     loading="lazy"
@@ -240,9 +240,9 @@ const Navbar = () => {
       </AnimatePresence>
     </>
   );
-};
+});
 
-const Footer = () => {
+const Footer = React.memo(() => {
   return (
     <footer 
       className="py-10 bg-indigo-50 border-t border-indigo-100"
@@ -255,7 +255,7 @@ const Footer = () => {
             <div className="flex items-center gap-3">
               <div className="w-14 h-14 rounded-xl overflow-hidden shadow-md border border-indigo-50 bg-white p-1">
                 <img 
-                  src="/LOGOIS.png" 
+                  src="/LOGOIS.webp" 
                   alt="Logo"
                   className="w-full h-full object-contain"
                   loading="lazy"
@@ -358,4 +358,4 @@ const Footer = () => {
       </div>
     </footer>
   );
-};
+});
