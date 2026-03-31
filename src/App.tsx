@@ -108,7 +108,7 @@ const Navbar = () => {
         <div 
           className={`max-w-7xl mx-auto transition-all duration-700 ease-in-out will-change-[backdrop-filter,background-color,border-radius,box-shadow] ${
             scrolled 
-              ? 'rounded-[2.5rem] bg-white/5 backdrop-blur-3xl border border-white/10 shadow-[0_8px_32px_0_rgba(255,255,255,0.05)] py-3 sm:py-4 px-8 sm:px-12' 
+              ? 'rounded-[2.5rem] bg-white/[0.02] backdrop-blur-[40px] border border-white/10 shadow-[0_8px_32px_0_rgba(255,255,255,0.03)] py-3 sm:py-4 px-8 sm:px-12' 
               : 'bg-transparent py-5 sm:py-8 px-6 sm:px-16'
           }`}
         >
