@@ -63,7 +63,7 @@ export const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-8 sm:py-12 px-4 sm:px-6 bg-[#F9FAFB] flex flex-col justify-center overflow-hidden scroll-mt-24" style={{ contentVisibility: 'auto', containIntrinsicSize: '0 600px' }}>
+    <section id="contact" className="py-6 sm:py-8 px-4 sm:px-6 bg-[#F9FAFB] flex flex-col justify-center overflow-hidden scroll-mt-24" style={{ contentVisibility: 'auto', containIntrinsicSize: '0 600px' }}>
       <div className="max-w-4xl mx-auto text-center mb-6 sm:mb-8 lg:mb-10 shrink-0">
         <Reveal y={20} width="100%">
           <h2 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-[#011C39] mb-4">
@@ -92,7 +92,7 @@ export const Contact = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, ease: 'easeOut' }}
-            className="lg:w-[40%] bg-[#3F2BFF] text-white relative p-6 sm:p-8 flex flex-col justify-between overflow-hidden shrink-0 will-change-transform"
+            className="lg:w-[45%] bg-[#3F2BFF] text-white relative p-8 sm:p-10 flex flex-col justify-between overflow-hidden shrink-0 shadow-2xl z-10 will-change-transform"
             style={{ translateZ: 0 }}
           >
             {/* Pink Circle - Smaller and tucked in corner */}
@@ -121,14 +121,28 @@ export const Contact = () => {
                   </span>
                 </a>
 
-                <div className="flex items-start gap-3 sm:gap-4 group">
-                  <MapPin size={16} className="text-white mt-1 sm:w-5 sm:h-5" />
-                  <span className="text-[10px] sm:text-xs font-bold leading-relaxed">
+                <div className="flex items-start gap-4 sm:gap-6 group">
+                  <MapPin size={18} className="text-white mt-1 sm:w-6 sm:h-6" />
+                  <span className="text-[11px] sm:text-sm font-bold leading-relaxed">
                     <ShinyText text="5515-137 Avenue NW, Edmonton," speed={4} shineColor="rgba(255,255,255,0.6)" />
                     <br />
                     <ShinyText text="AB T5A3L4, Canada" speed={4} shineColor="rgba(255,255,255,0.6)" />
                   </span>
                 </div>
+              </div>
+
+              {/* Map Integration */}
+              <div className="mt-8 rounded-xl overflow-hidden border-2 border-white/20 shadow-lg h-32 sm:h-40 hover:border-white/40 transition-colors">
+                <iframe 
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d501.7541107671962!2d-113.42613899999996!3d53.5983778!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x53a03d1a349e472f%3A0x82d84275fd873820!2sZahra%20Daycare%20Center!5e1!3m2!1sen!2sus!4v1774965057504!5m2!1sen!2sus" 
+                  width="100%" 
+                  height="100%" 
+                  style={{ border: 0 }}
+                  allowFullScreen={true}
+                  loading="lazy" 
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Zahra Daycare Location"
+                />
               </div>
             </div>
 
@@ -157,7 +171,7 @@ export const Contact = () => {
           </motion.div>
 
           {/* Right Panel: Form */}
-          <div className="lg:w-[60%] p-6 sm:p-8 bg-white flex flex-col">
+          <div className="lg:w-[55%] p-6 sm:p-7 bg-white flex flex-col">
             <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4">
                 {[
@@ -216,7 +230,7 @@ export const Contact = () => {
                 <textarea
                   id="message"
                   placeholder="Write your message..."
-                  rows={4}
+                  rows={3}
                   className="input-premium w-full focus-ring resize-none"
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
