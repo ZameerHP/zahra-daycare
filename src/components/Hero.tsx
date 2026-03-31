@@ -178,14 +178,20 @@ export const Hero = () => {
         className="relative z-20 flex flex-col items-center justify-center h-full px-6 text-center will-change-transform drop-shadow-[0_10px_30px_rgba(0,0,0,0.05)]"
       >
         <div className="max-w-6xl w-full">
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold text-indigo-950 leading-[1.1] mb-6 sm:mb-10 tracking-tight">
+          <Reveal delay={1.4} y={20} width="100%">
+            <p className="text-indigo-600 font-bold uppercase tracking-[0.2em] text-xs sm:text-sm mb-4">
+              Zahra Day Care Center
+            </p>
+          </Reveal>
+
+          <h1 className="text-3xl sm:text-5xl lg:text-7xl font-bold text-indigo-950 leading-[1.1] mb-6 sm:mb-10 tracking-tight">
             <ShinyText text={headline} speed={3} shineColor="rgba(255,255,255,0.8)" />
           </h1>
           
           <Reveal delay={1.8} y={20} width="100%">
-            <p className="text-sm sm:text-lg lg:text-xl text-indigo-900/80 mb-8 sm:mb-14 font-medium max-w-3xl mx-auto leading-relaxed tracking-wide">
+            <p className="text-sm sm:text-lg lg:text-xl text-indigo-900/90 mb-8 sm:mb-14 font-semibold max-w-4xl mx-auto leading-relaxed tracking-wide italic">
               <ShinyText 
-                text="Where every child's journey is filled with wonder, magic, and boundless joy." 
+                text="“Where care meets learning, and every child shines.”" 
                 speed={4} 
                 shineColor="rgba(255,255,255,0.6)" 
               />
