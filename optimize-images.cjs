@@ -16,8 +16,8 @@ const images = [
 
 async function optimizeImages() {
   for (const img of images) {
-    const inputPath = path.join(__dirname, img);
-    const outputPath = path.join(__dirname, img.split('.')[0] + '.webp');
+    const inputPath = path.join(__dirname, 'public', img);
+    const outputPath = path.join(__dirname, 'public', img.split('.')[0] + '.webp');
     
     if (fs.existsSync(inputPath)) {
       console.log(`Optimizing ${img}...`);
