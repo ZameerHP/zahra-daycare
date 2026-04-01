@@ -1,4 +1,4 @@
-import React, { useState, useMemo, memo, useEffect } from 'react';
+import React, { useState, useMemo, memo, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { X, ChevronLeft, ChevronRight, Play } from 'lucide-react';
 import { Reveal } from './Reveal';
@@ -131,43 +131,69 @@ const categories: Category[] = [
   'Special Events',
 ];
 
+// --- LAZY VIDEO with IntersectionObserver ---
+const LazyVideo = memo(({ src, poster }: { src: string; poster: string }) => {
+  const ref = useRef<HTMLVideoElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '200px' }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <video
+      ref={ref}
+      src={isVisible ? src : undefined}
+      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+      muted
+      loop
+      playsInline
+      preload="none"
+      poster={poster}
+      onMouseEnter={(e) => { if (isVisible) e.currentTarget.play(); }}
+      onMouseLeave={(e) => e.currentTarget.pause()}
+    />
+  );
+});
+
 // --- CARD ---
-const MediaCard = memo(({ item, onClick }: any) => {
+const MediaCard = memo(({ item, onClick }: { item: GalleryItem; onClick: (item: GalleryItem) => void }) => {
+  const handleClick = useCallback(() => onClick(item), [item, onClick]);
+
   return (
     <motion.div
-      layout
       className="cursor-pointer overflow-hidden rounded-premium-lg bg-black shadow-premium hover:shadow-premium-lg hover-lift group"
-      onClick={() => onClick(item)}
-      whileHover={{ scale: 1.02 }}
-      transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+      onClick={handleClick}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.3 }}
     >
       <div className="aspect-video flex items-center justify-center relative overflow-hidden">
         {item.type === 'video' ? (
           <>
-            <video
+            <LazyVideo
               src={item.src}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              muted
-              loop
-              playsInline
-              preload="none"
               poster={item.id === 3 ? '/IMG_0254.webp' : (item.id === 4 ? '/IMG_0201.webp' : '/IMG_0257.webp')}
-              onMouseEnter={(e) => e.currentTarget.play()}
-              onMouseLeave={(e) => e.currentTarget.pause()}
             />
             {/* OVERLAY */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent group-hover:from-black/70 group-hover:via-black/30 transition-all duration-300 flex items-center justify-center">
               {/* PLAY BUTTON */}
-              <motion.div
-                className="w-16 h-16 bg-white/95 backdrop-blur-sm rounded-full flex items-center justify-center shadow-premium-lg group-hover:shadow-glow"
-                whileHover={{ scale: 1.2 }}
-                transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-              >
+              <div className="w-16 h-16 bg-white/95 backdrop-blur-sm rounded-full flex items-center justify-center shadow-premium-lg group-hover:shadow-glow group-hover:scale-110 transition-transform duration-300">
                 <Play size={32} className="text-indigo-600 ml-1" fill="currentColor" />
-              </motion.div>
+              </div>
             </div>
           </>
         ) : (
@@ -186,31 +212,27 @@ const MediaCard = memo(({ item, onClick }: any) => {
 
 // --- MAIN ---
 export const Gallery = () => {
-  const [selectedItem, setSelectedItem] = useState<any>(null);
+  const [selectedItem, setSelectedItem] = useState<GalleryItem | null>(null);
   const [index, setIndex] = useState(0);
 
-  const filtered = useMemo(() => {
-    return galleryItems;
-  }, []);
-
-  const openItem = (item: any) => {
+  const openItem = useCallback((item: GalleryItem) => {
     setSelectedItem(item);
     setIndex(galleryItems.findIndex(i => i.id === item.id));
-  };
+  }, []);
 
-  const navigate = (dir: 'next' | 'prev') => {
-    let i = index;
-    i = dir === 'next' ? i + 1 : i - 1;
-
-    if (i < 0) i = galleryItems.length - 1;
-    if (i >= galleryItems.length) i = 0;
-
-    setIndex(i);
-    setSelectedItem(galleryItems[i]);
-  };
+  const navigate = useCallback((dir: 'next' | 'prev') => {
+    setIndex(prev => {
+      let i = dir === 'next' ? prev + 1 : prev - 1;
+      if (i < 0) i = galleryItems.length - 1;
+      if (i >= galleryItems.length) i = 0;
+      setSelectedItem(galleryItems[i]);
+      return i;
+    });
+  }, []);
 
   useEffect(() => {
     document.body.style.overflow = selectedItem ? 'hidden' : 'auto';
+    return () => { document.body.style.overflow = 'auto'; };
   }, [selectedItem]);
 
   return (
@@ -246,17 +268,14 @@ export const Gallery = () => {
           </Reveal>
         </div>
 
-        {/* GRID */}
-        <motion.div
-          layout
-          className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-5"
-        >
+        {/* GRID — removed layout animation from container for performance */}
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-5">
           <AnimatePresence>
-            {filtered.map(item => (
+            {galleryItems.map(item => (
               <MediaCard key={item.id} item={item} onClick={openItem} />
             ))}
           </AnimatePresence>
-        </motion.div>
+        </div>
       </div>
 
       {/* MODAL */}

@@ -3,7 +3,7 @@ import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'motion/
 import { useSmoothScroll } from './hooks/useSmoothScroll';
 import { Loader } from './components/Loader';
 import { Menu, X } from 'lucide-react';
-import ShinyText from './components/ShinyText';
+// ShinyText removed from footer for performance
 
 // Lazy load sections for better initial performance
 const Hero = lazy(() => import('./components/Hero').then(m => ({ default: m.Hero })));
@@ -101,12 +101,12 @@ const Navbar = React.memo(() => {
           y: { duration: 0.8 },
           opacity: { duration: 0.3 }
         }}
-        className={`fixed left-0 right-0 z-40 transition-all duration-700 ease-in-out ${
+        className={`fixed left-0 right-0 z-40 transition-[top,padding] duration-700 ease-in-out ${
           scrolled ? 'top-4 px-4 sm:px-6 lg:px-8' : 'top-0 px-0'
         }`}
       >
         <div 
-          className={`max-w-7xl mx-auto transition-all duration-700 ease-in-out will-change-[backdrop-filter,background-color,border-radius,box-shadow] ${
+          className={`max-w-7xl mx-auto transition-[backdrop-filter,background-color,border-radius,box-shadow,padding] duration-700 ease-in-out ${
             scrolled 
               ? 'rounded-[2.5rem] bg-white/[0.02] backdrop-blur-[40px] border border-white/40 shadow-[0_8px_32px_0_rgba(0,0,0,0.1)] py-3 sm:py-4 px-8 sm:px-12' 
               : 'bg-transparent py-5 sm:py-8 px-6 sm:px-16'
@@ -179,15 +179,29 @@ const Navbar = React.memo(() => {
 
             {/* Drawer */}
             <motion.div
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: 'spring', damping: 30, stiffness: 350, restDelta: 0.5 }}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              variants={{
+                hidden: { x: '100%' },
+                visible: { 
+                  x: 0,
+                  transition: { 
+                    type: 'spring', damping: 30, stiffness: 350, restDelta: 0.5,
+                    when: "beforeChildren",
+                    staggerChildren: 0.05
+                  }
+                },
+                exit: { 
+                  x: '100%',
+                  transition: { type: 'spring', damping: 30, stiffness: 350, restDelta: 0.5 }
+                }
+              }}
               className="fixed top-0 right-0 bottom-0 w-80 max-w-full bg-white z-40 md:hidden shadow-2xl overflow-y-auto will-change-transform"
               style={{ backfaceVisibility: 'hidden', transform: 'translateZ(0)' }}
             >
             {/* Header */}
-            <div className="sticky top-0 bg-white border-b border-indigo-100 p-4 sm:p-6 flex justify-between items-center">
+            <div className="sticky top-0 bg-white border-b border-indigo-100 p-4 sm:p-6 flex justify-between items-center z-10">
               <div className="flex items-center gap-2">
                 <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white rounded-lg border-2 border-indigo-100 overflow-hidden">
                   <img 
@@ -213,27 +227,37 @@ const Navbar = React.memo(() => {
             </div>
 
             {/* Menu Items */}
-            <div className="px-4 sm:px-6 py-6 flex flex-col gap-3">
+            <div className="px-4 sm:px-6 py-6 flex flex-col gap-3 relative z-0">
               {navLinks.map((link) => (
-                <button
+                <motion.button
+                  variants={{
+                    hidden: { opacity: 0, x: 20 },
+                    visible: { opacity: 1, x: 0, transition: { duration: 0.3 } }
+                  }}
                   key={link.name}
                   onClick={() => handleNavClick(link.href)}
                   className="text-left px-4 py-4 text-lg font-black text-indigo-950 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all uppercase tracking-wide"
                 >
                   {link.name}
-                </button>
+                </motion.button>
               ))}
             </div>
 
             {/* Footer Button */}
-            <div className="sticky bottom-0 bg-white border-t border-indigo-100 p-4 sm:p-6">
+            <motion.div 
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.3 } }
+              }}
+              className="sticky bottom-0 bg-white border-t border-indigo-100 p-4 sm:p-6 z-10"
+            >
               <button
                 onClick={() => handleNavClick('#contact')}
-                className="w-full px-6 py-4 bg-indigo-600 text-white rounded-lg font-black text-lg hover:bg-indigo-700 transition-all uppercase"
+                className="w-full px-6 py-4 bg-indigo-600 text-white rounded-lg font-black text-lg hover:bg-indigo-700 transition-all uppercase shadow-lg shadow-indigo-200"
               >
                 Join Us
               </button>
-            </div>
+            </motion.div>
           </motion.div>
         </>
       )}
@@ -263,18 +287,18 @@ const Footer = React.memo(() => {
                 />
               </div>
               <span className="text-lg font-bold text-indigo-950 tracking-tight">
-                <ShinyText text="Daycare" speed={3} />
+                Daycare
               </span>
             </div>
             <p className="text-indigo-900/80 text-xs font-medium leading-relaxed max-w-xs">
-              <ShinyText text="Providing a magical world of learning and joy for your little ones since 2015. We focus on early childhood development in a safe, nurturing environment." speed={4} />
+              Providing a magical world of learning and joy for your little ones since 2015. We focus on early childhood development in a safe, nurturing environment.
             </p>
           </div>
 
           {/* Quick Links */}
           <div className="flex flex-col gap-4">
             <h5 className="font-bold text-indigo-950 text-sm uppercase tracking-wider">
-              <ShinyText text="Quick Links" speed={3} />
+              Quick Links
             </h5>
             <div className="grid grid-cols-2 gap-2">
               {[
@@ -285,7 +309,7 @@ const Footer = React.memo(() => {
                 { name: 'Contact', href: '#contact' }
               ].map(item => (
                 <a key={item.name} href={item.href} className="text-indigo-900/80 hover:text-indigo-600 transition-colors font-semibold text-xs">
-                  <ShinyText text={item.name} speed={4} />
+                  {item.name}
                 </a>
               ))}
             </div>
@@ -294,17 +318,17 @@ const Footer = React.memo(() => {
           {/* Contact Info */}
           <div className="flex flex-col gap-4">
             <h5 className="font-bold text-indigo-950 text-sm uppercase tracking-wider">
-              <ShinyText text="Contact Us" speed={3} />
+              Contact Us
             </h5>
             <div className="flex flex-col gap-3">
               <div className="flex items-start gap-2 text-indigo-900/80 text-xs font-semibold">
-                <ShinyText text="5515-137 Avenue NW, Edmonton, AB T5A3L4" speed={4} />
+                5515-137 Avenue NW, Edmonton, AB T5A3L4
               </div>
               <a href="tel:+17802466870" className="text-indigo-900/80 hover:text-indigo-600 font-semibold text-xs">
-                <ShinyText text="+1 780-246-6870" speed={4} />
+                +1 780-246-6870
               </a>
               <a href="mailto:zahradaycare786@gmail.com" className="text-indigo-900/80 hover:text-indigo-600 font-semibold text-xs break-all">
-                <ShinyText text="zahradaycare786@gmail.com" speed={4} />
+                zahradaycare786@gmail.com
               </a>
             </div>
           </div>
@@ -312,9 +336,9 @@ const Footer = React.memo(() => {
           {/* Map Section */}
           <div className="flex flex-col gap-4 lg:col-span-1">
             <h5 className="font-bold text-indigo-950 text-sm uppercase tracking-wider">
-              <ShinyText text="Location" speed={3} />
+              Location
             </h5>
-            <div className="rounded-2xl overflow-hidden shadow-xl border-4 border-white h-48 sm:h-56 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+            <div className="rounded-2xl overflow-hidden shadow-xl border-4 border-white h-48 sm:h-56 hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-1">
               <iframe 
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d501.7541107671962!2d-113.42613899999996!3d53.5983778!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x53a03d1a349e472f%3A0x82d84275fd873820!2sZahra%20Daycare%20Center!5e1!3m2!1sen!2sus!4v1774965057504!5m2!1sen!2sus" 
                 width="100%" 
@@ -331,7 +355,7 @@ const Footer = React.memo(() => {
           {/* Hours */}
           <div className="flex flex-col gap-4">
             <h5 className="font-bold text-indigo-950 text-sm uppercase tracking-wider">
-              <ShinyText text="Opening Hours" speed={3} />
+              Opening Hours
             </h5>
             <div className="flex flex-col gap-2 text-indigo-900/80 text-xs font-semibold">
               <div className="flex justify-between">
@@ -359,3 +383,4 @@ const Footer = React.memo(() => {
     </footer>
   );
 });
+

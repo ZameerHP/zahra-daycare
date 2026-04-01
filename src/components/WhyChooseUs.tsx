@@ -1,5 +1,5 @@
 import React from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { Shield, Users, Heart, Sparkles, Utensils, Bell } from "lucide-react";
 import ShinyText from "./ShinyText";
 import ElectricBorder from "./ElectricBorder";

@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useId } from "react";
 
 interface ElectricBorderProps {
   children: React.ReactNode;
@@ -23,22 +23,35 @@ const ElectricBorder: React.FC<ElectricBorderProps> = ({
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  const filterId = useId();
 
   useEffect(() => {
     if (!containerRef.current) return;
 
+    // Use a single ResizeObserver callback, debounced via rAF
+    let rafId: number;
     const resizeObserver = new ResizeObserver((entries) => {
-      for (const entry of entries) {
-        setDimensions({
-          width: entry.contentRect.width,
-          height: entry.contentRect.height,
-        });
-      }
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        for (const entry of entries) {
+          setDimensions({
+            width: entry.contentRect.width,
+            height: entry.contentRect.height,
+          });
+        }
+      });
     });
 
     resizeObserver.observe(containerRef.current);
-    return () => resizeObserver.disconnect();
+    return () => {
+      cancelAnimationFrame(rafId);
+      resizeObserver.disconnect();
+    };
   }, []);
+
+  const w = Math.max(0, dimensions.width - thickness);
+  const h = Math.max(0, dimensions.height - thickness);
+  const halfT = thickness / 2;
 
   return (
     <div
@@ -52,9 +65,7 @@ const ElectricBorder: React.FC<ElectricBorderProps> = ({
       {/* The Electric Effect Layer */}
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{
-          borderRadius: `${borderRadius}px`,
-        }}
+        style={{ borderRadius: `${borderRadius}px` }}
       >
         <svg
           width="100%"
@@ -63,7 +74,7 @@ const ElectricBorder: React.FC<ElectricBorderProps> = ({
           style={{ overflow: "visible" }}
         >
           <defs>
-            <filter id="glow">
+            <filter id={filterId}>
               <feGaussianBlur stdDeviation="2" result="coloredBlur" />
               <feMerge>
                 <feMergeNode in="coloredBlur" />
@@ -72,37 +83,39 @@ const ElectricBorder: React.FC<ElectricBorderProps> = ({
             </filter>
           </defs>
           <rect
-            x={thickness / 2}
-            y={thickness / 2}
-            width={Math.max(0, dimensions.width - thickness)}
-            height={Math.max(0, dimensions.height - thickness)}
+            x={halfT}
+            y={halfT}
+            width={w}
+            height={h}
             rx={borderRadius}
             ry={borderRadius}
             fill="none"
             stroke={color}
             strokeWidth={thickness}
             strokeDasharray="20, 10, 40, 20"
-            filter="url(#glow)"
+            filter={`url(#${filterId})`}
+            className="electric-dash-1"
             style={{
               opacity: 0.8,
-              animation: `electric-dash ${4 / speed}s linear infinite`,
+              animationDuration: `${4 / speed}s`,
             }}
           />
           <rect
-            x={thickness / 2}
-            y={thickness / 2}
-            width={Math.max(0, dimensions.width - thickness)}
-            height={Math.max(0, dimensions.height - thickness)}
+            x={halfT}
+            y={halfT}
+            width={w}
+            height={h}
             rx={borderRadius}
             ry={borderRadius}
             fill="none"
             stroke={color}
             strokeWidth={thickness * 1.5}
             strokeDasharray="10, 50, 20, 80"
-            filter="url(#glow)"
+            filter={`url(#${filterId})`}
+            className="electric-dash-2"
             style={{
               opacity: 0.4,
-              animation: `electric-dash ${6 / (speed * (1 + chaos))}s linear infinite reverse`,
+              animationDuration: `${6 / (speed * (1 + chaos))}s`,
             }}
           />
         </svg>
@@ -115,13 +128,6 @@ const ElectricBorder: React.FC<ElectricBorderProps> = ({
       >
         {children}
       </div>
-
-      <style dangerouslySetInnerHTML={{ __html: `
-        @keyframes electric-dash {
-          from { stroke-dashoffset: 200; }
-          to { stroke-dashoffset: 0; }
-        }
-      `}} />
     </div>
   );
 };

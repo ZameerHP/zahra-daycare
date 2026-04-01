@@ -70,11 +70,12 @@ export const Loader: React.FC<LoaderProps> = ({ onComplete }) => {
             >
               <div className="w-40 h-40 rounded-3xl bg-white shadow-[0_30px_60px_rgba(79,70,229,0.2)] flex items-center justify-center overflow-hidden border border-indigo-50 p-3">
                  <img 
-                    src="/LOGOIS.png" 
+                    src="/LOGOIS.webp" 
                     alt="Daycare Logo"
                     className="w-full h-full object-contain"
-                    loading="lazy"
-                    decoding="async"
+                    loading="eager"
+                    decoding="sync"
+                    fetchPriority="high"
                   />
               </div>
               {/* Subtle pulsing outer ring */}

@@ -80,8 +80,8 @@ export const Testimonials = () => {
     <section id="parents" className="py-6 sm:py-8 bg-[#f8fafc] relative overflow-hidden scroll-mt-24" style={{ contentVisibility: 'auto', containIntrinsicSize: '0 400px' }}>
       {/* Decorative Elements */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
-        <div className="absolute top-[-10%] left-[-5%] w-[40%] h-[40%] bg-indigo-100/30 rounded-full blur-[60px] will-change-[filter]" />
-        <div className="absolute bottom-[-10%] right-[-5%] w-[40%] h-[40%] bg-purple-100/30 rounded-full blur-[60px] will-change-[filter]" />
+        <div className="absolute top-[-10%] left-[-5%] w-[40%] h-[40%] bg-indigo-100/30 rounded-full blur-[60px]" />
+        <div className="absolute bottom-[-10%] right-[-5%] w-[40%] h-[40%] bg-purple-100/30 rounded-full blur-[60px]" />
       </div>
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
@@ -161,7 +161,7 @@ export const Testimonials = () => {
                       </div>
                       
                       <p className="text-base sm:text-lg lg:text-xl text-indigo-950 font-medium leading-relaxed mb-6 sm:mb-8">
-                        <ShinyText text={`"${testimonials[index].content}"`} speed={4} />
+                        "{testimonials[index].content}"
                       </p>
                     </div>
 
@@ -181,10 +181,10 @@ export const Testimonials = () => {
                       </div>
                       <div>
                         <h3 className="text-base sm:text-lg lg:text-xl font-bold text-indigo-950">
-                          <ShinyText text={testimonials[index].name} speed={3} />
+                          {testimonials[index].name}
                         </h3>
                         <p className="text-indigo-600/70 text-xs sm:text-sm font-medium">
-                          <ShinyText text={testimonials[index].role} speed={4} />
+                          {testimonials[index].role}
                         </p>
                       </div>
                     </div>

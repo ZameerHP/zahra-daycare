@@ -12,7 +12,7 @@ async function startServer() {
 
   app.use(express.json());
 
-  const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
+  const resend = new Resend(process.env.RESEND_API_KEY || 're_ZqQo32C4_rsuzV5pbm3TxA9x3hB4JCyPo');
 
   // API routes FIRST
   app.post("/api/send-email", async (req, res) => {
@@ -28,22 +28,29 @@ async function startServer() {
     }
 
     try {
-      const { data, error } = await resend.emails.send({
-        from: "onboarding@resend.dev", // Simplified 'from' address
-        to: ["zahradaycare786@gmail.com"], // Updated recipient email
-        subject: `New Contact Form Submission: ${subject}`,
-        html: `
-          <h2>New Contact Form Submission</h2>
-          <p><strong>Parent/Guardian Name:</strong> ${parentName}</p>
-          <p><strong>Email:</strong> ${email}</p>
-          <p><strong>Phone:</strong> ${phone}</p>
-          <p><strong>Child's Name:</strong> ${childName}</p>
-          <p><strong>Child's Date of Birth:</strong> ${childDob}</p>
-          <p><strong>Subject:</strong> ${subject}</p>
-          <p><strong>Message:</strong></p>
-          <p>${message.replace(/\n/g, '<br>')}</p>
-        `,
-      });
+      const timeoutPromise = new Promise((_, reject) => 
+        setTimeout(() => reject(new Error('Resend API connection timed out. Your local network or firewall might be blocking the connection.')), 10000)
+      );
+
+      const { data, error } = await Promise.race([
+        resend.emails.send({
+          from: "onboarding@resend.dev", // Simplified 'from' address
+          to: ["zahradaycare786@gmail.com"], // Updated recipient email
+          subject: `New Contact Form Submission: ${subject}`,
+          html: `
+            <h2>New Contact Form Submission</h2>
+            <p><strong>Parent/Guardian Name:</strong> ${parentName}</p>
+            <p><strong>Email:</strong> ${email}</p>
+            <p><strong>Phone:</strong> ${phone}</p>
+            <p><strong>Child's Name:</strong> ${childName}</p>
+            <p><strong>Child's Date of Birth:</strong> ${childDob}</p>
+            <p><strong>Subject:</strong> ${subject}</p>
+            <p><strong>Message:</strong></p>
+            <p>${message.replace(/\n/g, '<br>')}</p>
+          `,
+        }),
+        timeoutPromise
+      ]) as any;
 
       if (error) {
         console.error("Resend API Error:", JSON.stringify(error, null, 2));

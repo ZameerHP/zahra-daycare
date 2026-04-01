@@ -38,7 +38,12 @@ export const Contact = () => {
         body: JSON.stringify(formData),
       });
 
-      const data = await response.json();
+      let data;
+      try {
+        data = await response.json();
+      } catch (e) {
+        throw new Error(`Server returned a non-JSON response (${response.status})`);
+      }
 
       if (response.ok) {
         setStatus('success');
@@ -53,12 +58,12 @@ export const Contact = () => {
         });
       } else {
         setStatus('error');
-        setErrorMessage(data.error || 'Failed to send message. Please try again later.');
+        setErrorMessage(data?.error || 'Failed to send message. Please try again later.');
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error submitting form:', error);
       setStatus('error');
-      setErrorMessage('A network error occurred. Please check your connection and try again.');
+      setErrorMessage(error.message || 'A network error occurred. Please check your connection and try again.');
     }
   };
 

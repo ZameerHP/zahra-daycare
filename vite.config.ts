@@ -17,9 +17,34 @@ export default defineConfig(({mode}) => {
       },
     },
     server: {
-      // HMR is disabled in AI Studio via DISABLE_HMR env var.
-      // Do not modifyâfile watching is disabled to prevent flickering during agent edits.
       hmr: process.env.DISABLE_HMR !== 'true',
+    },
+    build: {
+      // Target modern browsers for smaller output
+      target: 'es2020',
+      // Enable CSS code splitting
+      cssCodeSplit: true,
+      // Increase chunk warning limit since we have large media
+      chunkSizeWarningLimit: 600,
+      rollupOptions: {
+        output: {
+          // Split vendor chunks for better caching
+          manualChunks: {
+            'react-vendor': ['react', 'react-dom'],
+            'motion-vendor': ['motion', 'framer-motion'],
+            'lenis': ['lenis'],
+          },
+        },
+      },
+      // Minification
+      minify: 'terser',
+      terserOptions: {
+        compress: {
+          drop_console: true,
+          drop_debugger: true,
+          passes: 2,
+        },
+      },
     },
   };
 });

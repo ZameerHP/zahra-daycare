@@ -3,21 +3,34 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Daycare Center - A Safe and Happy Place for Your Child</title>
+    <title>Zahra Daycare Center - A Safe and Happy Place for Your Child</title>
     <meta name="description" content="Providing a magical world of learning and joy for your little ones since 2015. We focus on early childhood development in a safe, nurturing environment." />
     <meta name="theme-color" content="#4f46e9" />
-    <meta property="og:title" content="Daycare Center - A Safe and Happy Place for Your Child" />
+    <meta property="og:title" content="Zahra Daycare Center - A Safe and Happy Place for Your Child" />
     <meta property="og:description" content="Providing a magical world of learning and joy for your little ones since 2015." />
     <meta property="og:type" content="website" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
-    <link rel="dns-prefetch" href="https://unpkg.com">
-    <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.9.8/dist/dotlottie-wc.js" type="module"></script>
+
+    <!-- Preconnect to critical origins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://unpkg.com" />
+    <link rel="dns-prefetch" href="https://lottie.host" />
+    <link rel="dns-prefetch" href="https://lh3.googleusercontent.com" />
+    <link rel="dns-prefetch" href="https://picsum.photos" />
+
+    <!-- Preload critical font weights only (not all weights) -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700&display=swap" /></noscript>
+
+    <!-- Preload the logo shown in the loader (first paint) -->
+    <link rel="preload" href="/LOGOIS.webp" as="image" type="image/webp" />
+
+    <!-- Lottie loaded async so it doesn't block first paint -->
+    <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.9.8/dist/dotlottie-wc.js" type="module" async></script>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
-

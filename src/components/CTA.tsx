@@ -1,60 +1,66 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { motion } from 'motion/react';
 import { Heart, Star, Cloud, Sparkles } from 'lucide-react';
 import ShinyText from './ShinyText';
 import { Reveal } from './Reveal';
 
+// Pre-compute floating icons outside component to avoid re-creation
+const ICONS = [Heart, Star, Cloud, Sparkles];
+
 export const CTA = () => {
+  // Reduce from 15 → 6 floating elements. Still looks alive, 60% less GPU work.
+  const floatingElements = useMemo(() => 
+    Array.from({ length: 6 }, (_, i) => ({
+      key: i,
+      Icon: ICONS[i % 4],
+      top: `${15 + i * 14}%`,
+      left: `${10 + i * 16}%`,
+      size: 24 + (i % 3) * 8,
+      fill: i % 2 === 0,
+      duration: 8 + i * 2,
+      delay: i * 0.8,
+    })),
+  []);
+
   return (
     <section className="py-12 sm:py-16 lg:py-20 relative overflow-hidden bg-indigo-600" style={{ contentVisibility: 'auto', containIntrinsicSize: '0 400px' }}>
       {/* Animated Background Gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-indigo-600 via-purple-600 to-indigo-700 animate-gradient opacity-90" />
       
-      {/* Animated Background Waves */}
+      {/* Animated Background Waves — single element, GPU-only animation */}
       <div className="absolute inset-0 opacity-30">
         <motion.div
           animate={{ 
             x: [-200, 0, -200],
             y: [0, 40, 0],
-            rotate: [0, 5, 0]
           }}
           transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
           className="absolute top-0 left-0 w-[250%] h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white/30 via-transparent to-transparent blur-3xl will-change-transform"
-          style={{ translateZ: 0 }}
+          style={{ transform: 'translateZ(0)' }}
         />
       </div>
 
-      {/* Floating Decorative Shapes */}
+      {/* Floating Decorative Shapes — reduced to 6, simpler animations */}
       <div className="absolute inset-0 pointer-events-none">
-        {[...Array(15)].map((_, i) => {
-          const Icon = [Heart, Star, Cloud, Sparkles][i % 4];
-          return (
-            <motion.div
-              key={i}
-              className="absolute text-white/20 will-change-transform"
-              style={{
-                top: Math.random() * 100 + '%',
-                left: Math.random() * 100 + '%',
-                translateZ: 0
-              }}
-              animate={{
-                y: [0, -60, 0],
-                x: [0, 30, 0],
-                rotate: [0, 360],
-                scale: [1, 1.3, 1],
-                opacity: [0.1, 0.3, 0.1]
-              }}
-              transition={{
-                duration: 6 + Math.random() * 8,
-                repeat: Infinity,
-                delay: Math.random() * 4,
-                ease: "easeInOut"
-              }}
-            >
-              <Icon size={24 + Math.random() * 32} fill={i % 2 === 0 ? "currentColor" : "none"} />
-            </motion.div>
-          );
-        })}
+        {floatingElements.map(({ key, Icon, top, left, size, fill, duration, delay }) => (
+          <motion.div
+            key={key}
+            className="absolute text-white/20 will-change-transform"
+            style={{ top, left, transform: 'translateZ(0)' }}
+            animate={{
+              y: [0, -40, 0],
+              opacity: [0.1, 0.25, 0.1]
+            }}
+            transition={{
+              duration,
+              repeat: Infinity,
+              delay,
+              ease: "easeInOut"
+            }}
+          >
+            <Icon size={size} fill={fill ? "currentColor" : "none"} />
+          </motion.div>
+        ))}
       </div>
 
       <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
@@ -84,7 +90,7 @@ export const CTA = () => {
               }}
               transition={{ duration: 2, repeat: Infinity }}
               className="w-full sm:w-auto px-12 py-5 bg-white text-indigo-600 rounded-full font-bold text-base sm:text-lg shadow-2xl transition-all relative group overflow-hidden min-h-[44px] will-change-transform"
-              style={{ translateZ: 0 }}
+              style={{ transform: 'translateZ(0)' }}
             >
               <span className="relative z-10">Enroll Now</span>
               <div className="absolute inset-0 bg-indigo-50 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
@@ -95,7 +101,7 @@ export const CTA = () => {
               onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
               aria-label="Contact Zahra Daycare"
               className="w-full sm:w-auto px-12 py-5 bg-transparent border-2 border-white/50 text-white rounded-full font-bold text-base sm:text-lg shadow-xl transition-all backdrop-blur-sm min-h-[44px] will-change-transform"
-              style={{ translateZ: 0 }}
+              style={{ transform: 'translateZ(0)' }}
             >
               Contact Us
             </motion.button>
