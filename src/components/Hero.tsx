@@ -56,12 +56,12 @@ export const Hero = () => {
         style={{ y: smoothSkyY, translateZ: 0 }}
         className="absolute inset-0 z-0 will-change-transform"
       >
-        <div className="absolute top-16 sm:top-24 left-[5%] sm:left-[10%] text-yellow-400 opacity-60 drop-shadow-[0_0_15px_rgba(250,204,21,0.4)]" aria-hidden="true">
-          <Sun size={60} sm:size={120} fill="currentColor" className="animate-pulse animate-soft-float" />
+        <div className="absolute top-12 sm:top-20 left-[5%] sm:left-[10%] text-yellow-400 opacity-60 drop-shadow-[0_0_15px_rgba(250,204,21,0.4)]" aria-hidden="true">
+          <Sun size={48} sm:size={100} fill="currentColor" className="animate-pulse animate-soft-float" />
         </div>
         
-        <div className="absolute top-32 sm:top-40 right-[10%] sm:right-[15%] text-indigo-200/30" aria-hidden="true">
-          <Sparkles size={40} sm:size={80} />
+        <div className="absolute top-24 sm:top-32 right-[8%] sm:right-[15%] text-indigo-200/30" aria-hidden="true">
+          <Sparkles size={32} sm:size={60} />
         </div>
       </motion.div>
 
@@ -179,17 +179,17 @@ export const Hero = () => {
       >
         <div className="max-w-6xl w-full">
           <Reveal delay={1.4} y={20} width="100%">
-            <p className="text-indigo-600 font-bold uppercase tracking-[0.2em] text-xs sm:text-sm mb-4">
+            <p className="text-indigo-600 font-bold uppercase tracking-[0.15em] text-[10px] sm:text-xs mb-3">
               Zahra Day Care Center
             </p>
           </Reveal>
 
-          <h1 className="text-3xl sm:text-5xl lg:text-7xl font-bold text-indigo-950 leading-[1.1] mb-6 sm:mb-10 tracking-tight">
+          <h1 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-indigo-950 leading-[1.15] mb-4 sm:mb-8 tracking-tight">
             <ShinyText text={headline} speed={3} shineColor="rgba(255,255,255,0.8)" />
           </h1>
           
           <Reveal delay={1.8} y={20} width="100%">
-            <p className="text-sm sm:text-lg lg:text-xl text-indigo-900/90 mb-8 sm:mb-14 font-semibold max-w-4xl mx-auto leading-relaxed tracking-wide italic">
+            <p className="text-xs sm:text-base lg:text-lg text-indigo-900/90 mb-6 sm:mb-10 font-semibold max-w-3xl mx-auto leading-relaxed tracking-wide italic">
               <ShinyText 
                 text="“Where care meets learning, and every child shines.”" 
                 speed={4} 

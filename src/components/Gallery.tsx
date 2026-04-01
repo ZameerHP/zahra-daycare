@@ -28,14 +28,14 @@ const galleryItems: GalleryItem[] = [
     id: 1,
     type: 'image',
     category: ['Pre School Room'],
-    src: 'https://lh3.googleusercontent.com/d/1nzcRdnzunqBIUViM3m6K-6hTf6es3J_M',
+    src: '/IMG_0201.webp',
     title: 'Pre School Room',
   },
   {
     id: 2,
     type: 'image',
     category: ['Toddler Room'],
-    src: 'https://lh3.googleusercontent.com/d/1HuO7E0uT_qOKMss_MtTIogaL4hHZwjEp',
+    src: '/IMG_0256.webp',
     title: 'Toddler Room',
   },
   // NEW LOCAL IMAGES
@@ -186,7 +186,20 @@ const MediaCard = memo(({ item, onClick }: { item: GalleryItem; onClick: (item: 
           <>
             <LazyVideo
               src={item.src}
-              poster={item.id === 3 ? '/IMG_0254.webp' : (item.id === 4 ? '/IMG_0201.webp' : '/IMG_0257.webp')}
+              poster={
+                item.id === 3 ? '/IMG_0254.webp' : 
+                item.id === 4 ? '/IMG_0201.webp' : 
+                item.id === 5 ? '/IMG_0256.webp' :
+                item.id === 6 ? '/IMG_0254.webp' :
+                item.id === 7 ? '/IMG_0206.webp' :
+                item.id === 9 ? '/IMG_0202.webp' :
+                item.id === 10 ? '/IMG_0256.webp' :
+                item.id === 11 ? '/IMG_0254.webp' :
+                item.id === 12 ? '/IMG_0257.webp' :
+                item.id === 20 ? '/IMG_0255.webp' :
+                item.id === 21 ? '/IMG_0206.webp' :
+                '/IMG_0257.webp'
+              }
             />
             {/* OVERLAY */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent group-hover:from-black/70 group-hover:via-black/30 transition-all duration-300 flex items-center justify-center">

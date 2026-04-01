@@ -3,7 +3,6 @@ import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'motion/
 import { useSmoothScroll } from './hooks/useSmoothScroll';
 import { Loader } from './components/Loader';
 import { Menu, X } from 'lucide-react';
-// ShinyText removed from footer for performance
 
 // Lazy load sections for better initial performance
 const Hero = lazy(() => import('./components/Hero').then(m => ({ default: m.Hero })));
@@ -102,20 +101,20 @@ const Navbar = React.memo(() => {
           opacity: { duration: 0.3 }
         }}
         className={`fixed left-0 right-0 z-40 transition-[top,padding] duration-700 ease-in-out ${
-          scrolled ? 'top-4 px-4 sm:px-6 lg:px-8' : 'top-0 px-0'
+          scrolled ? 'top-2 px-4 sm:px-6 lg:px-8' : 'top-0 px-0'
         }`}
       >
         <div 
           className={`max-w-7xl mx-auto transition-[backdrop-filter,background-color,border-radius,box-shadow,padding] duration-700 ease-in-out ${
             scrolled 
-              ? 'rounded-[2.5rem] bg-white/[0.02] backdrop-blur-[40px] border border-white/40 shadow-[0_8px_32px_0_rgba(0,0,0,0.1)] py-3 sm:py-4 px-8 sm:px-12' 
-              : 'bg-transparent py-5 sm:py-8 px-6 sm:px-16'
+              ? 'rounded-[1.5rem] bg-white/[0.02] backdrop-blur-[32px] border border-white/30 shadow-[0_8px_32px_0_rgba(0,0,0,0.1)] py-2 sm:py-2.5 px-6 sm:px-10' 
+              : 'bg-transparent py-4 sm:py-5 px-5 sm:px-12'
           }`}
         >
           <div className="flex justify-between items-center">
             {/* Logo & Brand */}
-            <a href="/" className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
-              <div className="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-lg border-2 border-indigo-100 overflow-hidden shadow-md">
+            <a href="/" className="flex items-center gap-2 flex-shrink-0">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 bg-white rounded-lg border-2 border-indigo-100 overflow-hidden shadow-sm">
                 <img 
                   src="/LOGOIS.webp" 
                   alt="Daycare Logo"
@@ -124,9 +123,9 @@ const Navbar = React.memo(() => {
                   decoding="async"
                 />
               </div>
-              <div className="hidden sm:flex flex-col gap-0">
-                <span className="text-base sm:text-lg font-black text-indigo-950">Zahra</span>
-                <span className="text-xs font-bold text-indigo-500 uppercase">Daycare</span>
+              <div className="hidden sm:flex flex-col gap-0 leading-none">
+                <span className="text-sm sm:text-base font-black text-indigo-950">Zahra</span>
+                <span className="text-[10px] font-bold text-indigo-500 uppercase">Daycare</span>
               </div>
             </a>
 
@@ -136,7 +135,7 @@ const Navbar = React.memo(() => {
                 <button
                   key={link.name}
                   onClick={() => handleNavClick(link.href)}
-                  className="text-sm font-black text-indigo-950 hover:text-indigo-600 transition-colors uppercase tracking-wide"
+                  className="text-[11px] lg:text-xs font-black text-indigo-950 hover:text-indigo-600 transition-colors uppercase tracking-widest"
                 >
                   {link.name}
                 </button>
@@ -145,7 +144,7 @@ const Navbar = React.memo(() => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => handleNavClick('#contact')}
-                className="px-6 py-3 bg-indigo-600 text-white rounded-full font-black text-sm shadow-lg hover:shadow-xl transition-all uppercase"
+                className="px-4 py-2 bg-indigo-600 text-white rounded-full font-black text-[10px] shadow-lg hover:shadow-xl transition-all uppercase tracking-wider"
               >
                 Join Us
               </motion.button>
@@ -154,10 +153,10 @@ const Navbar = React.memo(() => {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden w-11 h-11 rounded-lg bg-indigo-100 flex items-center justify-center text-indigo-950 hover:bg-indigo-200 transition-colors"
+              className="md:hidden w-10 h-10 rounded-lg bg-indigo-100 flex items-center justify-center text-indigo-950 hover:bg-indigo-200 transition-colors"
               aria-label="Toggle menu"
             >
-              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
         </div>
@@ -201,9 +200,9 @@ const Navbar = React.memo(() => {
               style={{ backfaceVisibility: 'hidden', transform: 'translateZ(0)' }}
             >
             {/* Header */}
-            <div className="sticky top-0 bg-white border-b border-indigo-100 p-4 sm:p-6 flex justify-between items-center z-10">
+            <div className="sticky top-0 bg-white border-b border-indigo-100 p-4 flex justify-between items-center z-10">
               <div className="flex items-center gap-2">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white rounded-lg border-2 border-indigo-100 overflow-hidden">
+                <div className="w-10 h-10 bg-white rounded-lg border-2 border-indigo-100 overflow-hidden">
                   <img 
                     src="/LOGOIS.webp" 
                     alt="Logo"
@@ -212,22 +211,22 @@ const Navbar = React.memo(() => {
                     decoding="async"
                   />
                 </div>
-                <div className="flex flex-col gap-0">
-                  <span className="font-black text-indigo-950 text-base">Zahra</span>
-                  <span className="text-xs font-bold text-indigo-500 uppercase">Daycare</span>
+                <div className="flex flex-col gap-0 leading-none">
+                  <span className="font-black text-indigo-950 text-sm">Zahra</span>
+                  <span className="text-[10px] font-bold text-indigo-500 uppercase">Daycare</span>
                 </div>
               </div>
               <button
                 onClick={() => setMobileMenuOpen(false)}
-                className="w-10 h-10 rounded-lg bg-indigo-100 flex items-center justify-center text-indigo-950 hover:bg-indigo-200"
+                className="w-9 h-9 rounded-lg bg-indigo-100 flex items-center justify-center text-indigo-950 hover:bg-indigo-200"
                 aria-label="Close menu"
               >
-                <X size={24} />
+                <X size={20} />
               </button>
             </div>
 
             {/* Menu Items */}
-            <div className="px-4 sm:px-6 py-6 flex flex-col gap-3 relative z-0">
+            <div className="px-4 py-4 flex flex-col gap-2 relative z-0">
               {navLinks.map((link) => (
                 <motion.button
                   variants={{
@@ -236,7 +235,7 @@ const Navbar = React.memo(() => {
                   }}
                   key={link.name}
                   onClick={() => handleNavClick(link.href)}
-                  className="text-left px-4 py-4 text-lg font-black text-indigo-950 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all uppercase tracking-wide"
+                  className="text-left px-4 py-3 text-sm font-black text-indigo-950 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all uppercase tracking-widest"
                 >
                   {link.name}
                 </motion.button>
@@ -249,11 +248,11 @@ const Navbar = React.memo(() => {
                 hidden: { opacity: 0, y: 20 },
                 visible: { opacity: 1, y: 0, transition: { duration: 0.3 } }
               }}
-              className="sticky bottom-0 bg-white border-t border-indigo-100 p-4 sm:p-6 z-10"
+              className="sticky bottom-0 bg-white border-t border-indigo-100 p-4 z-10"
             >
               <button
                 onClick={() => handleNavClick('#contact')}
-                className="w-full px-6 py-4 bg-indigo-600 text-white rounded-lg font-black text-lg hover:bg-indigo-700 transition-all uppercase shadow-lg shadow-indigo-200"
+                className="w-full px-5 py-3 bg-indigo-600 text-white rounded-lg font-black text-base hover:bg-indigo-700 transition-all uppercase shadow-lg shadow-indigo-200 tracking-wider"
               >
                 Join Us
               </button>
@@ -269,7 +268,7 @@ const Navbar = React.memo(() => {
 const Footer = React.memo(() => {
   return (
     <footer 
-      className="py-10 bg-indigo-50 border-t border-indigo-100"
+      className="py-10 bg-indigo-50 border-t border-indigo-100 mt-auto"
       style={{ contentVisibility: 'auto', containIntrinsicSize: '0 400px' }}
     >
       <div className="max-w-7xl mx-auto px-6">
@@ -277,7 +276,7 @@ const Footer = React.memo(() => {
           {/* Brand Column */}
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-3">
-              <div className="w-14 h-14 rounded-xl overflow-hidden shadow-md border border-indigo-50 bg-white p-1">
+              <div className="w-12 h-12 rounded-xl overflow-hidden shadow-md border border-indigo-50 bg-white p-1">
                 <img 
                   src="/LOGOIS.webp" 
                   alt="Logo"
@@ -286,18 +285,18 @@ const Footer = React.memo(() => {
                   decoding="async"
                 />
               </div>
-              <span className="text-lg font-bold text-indigo-950 tracking-tight">
+              <span className="text-base font-bold text-indigo-950 tracking-tight">
                 Daycare
               </span>
             </div>
-            <p className="text-indigo-900/80 text-xs font-medium leading-relaxed max-w-xs">
+            <p className="text-indigo-900/80 text-[10px] font-medium leading-relaxed max-w-xs">
               Providing a magical world of learning and joy for your little ones since 2015. We focus on early childhood development in a safe, nurturing environment.
             </p>
           </div>
 
           {/* Quick Links */}
           <div className="flex flex-col gap-4">
-            <h5 className="font-bold text-indigo-950 text-sm uppercase tracking-wider">
+            <h5 className="font-bold text-indigo-950 text-[10px] uppercase tracking-wider">
               Quick Links
             </h5>
             <div className="grid grid-cols-2 gap-2">
@@ -308,7 +307,7 @@ const Footer = React.memo(() => {
                 { name: 'Parents', href: '#parents' },
                 { name: 'Contact', href: '#contact' }
               ].map(item => (
-                <a key={item.name} href={item.href} className="text-indigo-900/80 hover:text-indigo-600 transition-colors font-semibold text-xs">
+                <a key={item.name} href={item.href} className="text-indigo-900/80 hover:text-indigo-600 transition-colors font-semibold text-[10px]">
                   {item.name}
                 </a>
               ))}
@@ -317,17 +316,17 @@ const Footer = React.memo(() => {
 
           {/* Contact Info */}
           <div className="flex flex-col gap-4">
-            <h5 className="font-bold text-indigo-950 text-sm uppercase tracking-wider">
+            <h5 className="font-bold text-indigo-950 text-[10px] uppercase tracking-wider">
               Contact Us
             </h5>
-            <div className="flex flex-col gap-3">
-              <div className="flex items-start gap-2 text-indigo-900/80 text-xs font-semibold">
+            <div className="flex flex-col gap-2">
+              <div className="flex items-start gap-2 text-indigo-900/80 text-[10px] font-semibold">
                 5515-137 Avenue NW, Edmonton, AB T5A3L4
               </div>
-              <a href="tel:+17802466870" className="text-indigo-900/80 hover:text-indigo-600 font-semibold text-xs">
+              <a href="tel:+17802466870" className="text-indigo-900/80 hover:text-indigo-600 font-semibold text-[10px]">
                 +1 780-246-6870
               </a>
-              <a href="mailto:zahradaycare786@gmail.com" className="text-indigo-900/80 hover:text-indigo-600 font-semibold text-xs break-all">
+              <a href="mailto:zahradaycare786@gmail.com" className="text-indigo-900/80 hover:text-indigo-600 font-semibold text-[10px] break-all">
                 zahradaycare786@gmail.com
               </a>
             </div>
@@ -335,10 +334,10 @@ const Footer = React.memo(() => {
 
           {/* Map Section */}
           <div className="flex flex-col gap-4 lg:col-span-1">
-            <h5 className="font-bold text-indigo-950 text-sm uppercase tracking-wider">
+            <h5 className="font-bold text-indigo-950 text-[10px] uppercase tracking-wider">
               Location
             </h5>
-            <div className="rounded-2xl overflow-hidden shadow-xl border-4 border-white h-48 sm:h-56 hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-1">
+            <div className="rounded-2xl overflow-hidden shadow-lg border-2 border-white h-40 hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1">
               <iframe 
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d501.7541107671962!2d-113.42613899999996!3d53.5983778!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x53a03d1a349e472f%3A0x82d84275fd873820!2sZahra%20Daycare%20Center!5e1!3m2!1sen!2sus!4v1774965057504!5m2!1sen!2sus" 
                 width="100%" 
@@ -354,10 +353,10 @@ const Footer = React.memo(() => {
 
           {/* Hours */}
           <div className="flex flex-col gap-4">
-            <h5 className="font-bold text-indigo-950 text-sm uppercase tracking-wider">
+            <h5 className="font-bold text-indigo-950 text-[10px] uppercase tracking-wider">
               Opening Hours
             </h5>
-            <div className="flex flex-col gap-2 text-indigo-900/80 text-xs font-semibold">
+            <div className="flex flex-col gap-2 text-indigo-900/80 text-[10px] font-semibold">
               <div className="flex justify-between">
                 <span>Mon - Fri:</span>
                 <span>7:00 AM - 6:00 PM</span>
@@ -370,11 +369,11 @@ const Footer = React.memo(() => {
           </div>
         </div>
         
-        <div className="mt-10 pt-6 border-t border-indigo-100 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-indigo-400 font-bold text-[10px] uppercase tracking-widest">
+        <div className="mt-8 pt-6 border-t border-indigo-100 flex flex-col sm:flex-row justify-between items-center gap-4">
+          <p className="text-indigo-400 font-bold text-[8px] uppercase tracking-widest">
             © 2026 Daycare. All rights reserved.
           </p>
-          <div className="flex gap-6 text-indigo-400 font-bold text-[10px] uppercase tracking-widest">
+          <div className="flex gap-6 text-indigo-400 font-bold text-[8px] uppercase tracking-widest">
             <a href="#" className="hover:text-indigo-600 transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-indigo-600 transition-colors">Terms of Service</a>
           </div>
@@ -383,4 +382,3 @@ const Footer = React.memo(() => {
     </footer>
   );
 });
-

@@ -16,11 +16,11 @@
   }
 
   h1 {
-    @apply text-4xl sm:text-5xl lg:text-6xl leading-tight tracking-tight;
+    @apply text-3xl sm:text-4xl lg:text-5xl leading-tight tracking-tight;
   }
-
+  
   h2 {
-    @apply text-2xl sm:text-3xl lg:text-4xl leading-snug tracking-tight;
+    @apply text-xl sm:text-2xl lg:text-3xl leading-snug tracking-tight;
   }
 
   p {
@@ -59,10 +59,10 @@
     background-color: #4f46e9;
     color: #ffffff;
     box-shadow: 0 0 30px rgba(79, 70, 229, 0.2);
-    padding: 0.75rem 2rem;
-    border-radius: 16px;
+    padding: 0.625rem 1.75rem;
+    border-radius: 14px;
     font-weight: 700;
-    font-size: 0.875rem;
+    font-size: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
@@ -85,10 +85,10 @@
     color: #4f46e9;
     border: 1px solid #c7d2fe;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    padding: 0.75rem 2rem;
-    border-radius: 16px;
+    padding: 0.625rem 1.75rem;
+    border-radius: 14px;
     font-weight: 700;
-    font-size: 0.875rem;
+    font-size: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
@@ -233,7 +233,7 @@
 
   /* Section utilities */
   .section-premium {
-    @apply py-12 sm:py-16 lg:py-24;
+    @apply py-8 sm:py-12 lg:py-16;
   }
 
   .container-premium {
