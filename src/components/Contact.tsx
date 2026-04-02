@@ -68,9 +68,9 @@ export const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-12 sm:py-16 bg-white relative overflow-hidden scroll-mt-32">
+    <section id="contact" className="py-8 sm:py-12 bg-white relative overflow-hidden scroll-mt-32">
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-10">
+        <div className="text-center max-w-3xl mx-auto mb-6">
           <Reveal y={20} width="100%">
             <div className="inline-block px-5 py-2.5 mb-6 rounded-full bg-indigo-50 border border-indigo-100 shadow-sm">
               <div className="flex items-center gap-3">
@@ -108,24 +108,24 @@ export const Contact = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, ease: 'easeOut' }}
-              className="lg:w-[45%] bg-[#3F2BFF] text-white relative p-8 sm:p-10 flex flex-col justify-between overflow-hidden shrink-0 shadow-2xl z-10 will-change-transform"
+              className="lg:w-[45%] bg-[#3F2BFF] text-white relative p-6 sm:p-8 flex flex-col justify-between overflow-hidden shrink-0 shadow-2xl z-10 will-change-transform"
               style={{ translateZ: 0 }}
             >
               {/* Pink Circle */}
               <div className="absolute -bottom-10 -right-10 w-24 h-24 sm:w-32 sm:h-32 bg-[#FF9898] rounded-full opacity-90 z-0"></div>
 
               <div className="relative z-10">
-                <h3 className="text-base sm:text-lg font-bold mb-3 sm:mb-4">
+                <h3 className="text-base sm:text-lg font-bold mb-2 sm:mb-3">
                   <ShinyText text="Contact Information" speed={3} shineColor="rgba(255,255,255,0.8)" />
                 </h3>
-                <p className="text-[#E0E0E0] mb-6 sm:mb-8 leading-relaxed text-[10px] sm:text-xs font-medium">
+                <p className="text-[#E0E0E0] mb-4 sm:mb-6 leading-relaxed text-[10px] sm:text-xs font-medium">
                   <ShinyText text="Fill out the form and our team will get back to you within 24 hours." speed={4} shineColor="rgba(255,255,255,0.6)" />
                 </p>
 
                 <div className="space-y-4 sm:space-y-6">
-                  <a href="tel:+17802466870" className="flex items-center gap-3 sm:gap-4 group">
-                    <Phone size={16} className="text-white sm:w-5 sm:h-5" />
-                    <span className="text-[10px] sm:text-xs font-bold">
+                  <a href="tel:+17802466870" className="flex items-center gap-2 sm:gap-3 group">
+                    <Phone size={14} className="text-white sm:w-4 sm:h-4" />
+                    <span className="text-[10px] sm:text-xs font-bold font-inter">
                       <ShinyText text="+1 780-246-6870" speed={4} shineColor="rgba(255,255,255,0.6)" />
                     </span>
                   </a>
@@ -148,7 +148,7 @@ export const Contact = () => {
                 </div>
 
                 {/* Map Integration */}
-                <div className="mt-8 rounded-xl overflow-hidden border-2 border-white/20 shadow-lg h-32 sm:h-40 hover:border-white/40 transition-colors">
+                <div className="mt-6 rounded-xl overflow-hidden border-2 border-white/10 shadow-lg h-24 sm:h-32 hover:border-white/40 transition-colors">
                   <iframe 
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d501.7541107671962!2d-113.42613899999996!3d53.5983778!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x53a03d1a349e472f%3A0x82d84275fd873820!2sZahra%20Daycare%20Center!5e1!3m2!1sen!2sus!4v1774965057504!5m2!1sen!2sus" 
                     width="100%" 
@@ -163,7 +163,7 @@ export const Contact = () => {
               </div>
 
               {/* Social Icons */}
-              <div className="flex gap-3 sm:gap-4 relative z-10 mt-8 sm:mt-10">
+              <div className="flex gap-3 sm:gap-4 relative z-10 mt-6 sm:mt-8">
                 {[
                   {icon: Facebook, href: '#', label: 'Facebook'}, 
                   {icon: Twitter, href: '#', label: 'Twitter'}, 
@@ -187,8 +187,8 @@ export const Contact = () => {
             </motion.div>
 
             {/* Right Panel: Form */}
-            <div className="lg:w-[55%] p-6 sm:p-7 bg-white flex flex-col">
-              <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+            <div className="lg:w-[55%] p-5 sm:p-6 bg-white flex flex-col">
+              <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4">
                   {[
                     { label: 'Parent/Guardian Name', value: 'parentName', type: 'text', id: 'parent-name' },
@@ -246,7 +246,7 @@ export const Contact = () => {
                   <textarea
                     id="message"
                     placeholder="Write your message..."
-                    rows={3}
+                    rows={2}
                     className="input-premium w-full focus-ring resize-none"
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
