@@ -1,52 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-  <!-- Homepage / Hero -->
   <url>
     <loc>https://zahradaycare.ca/</loc>
     <lastmod>2026-04-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
-
-  <!-- About Section -->
-  <url>
-    <loc>https://zahradaycare.ca/#about</loc>
-    <lastmod>2026-04-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- Why Choose Us Section -->
-  <url>
-    <loc>https://zahradaycare.ca/#why-us</loc>
-    <lastmod>2026-04-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- Gallery Section -->
-  <url>
-    <loc>https://zahradaycare.ca/#gallery</loc>
-    <lastmod>2026-04-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <!-- Testimonials / Parents Section -->
-  <url>
-    <loc>https://zahradaycare.ca/#parents</loc>
-    <lastmod>2026-04-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <!-- Contact Section -->
-  <url>
-    <loc>https://zahradaycare.ca/#contact</loc>
-    <lastmod>2026-04-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
 </urlset>
