@@ -81,10 +81,16 @@ const Navbar = React.memo(() => {
     { name: 'Gallery', href: '#gallery' },
     { name: 'Parents', href: '#parents' },
     { name: 'Contact', href: '#contact' },
+    { name: 'Regulation', href: '/Alberta%20Childcare%20Regulation%20Actr%20Sept%202025.pdf', isExternal: true },
+    { name: 'Handbook', href: '/Employee%20Handbook%20April%202026.pdf', isExternal: true },
   ];
 
-  const handleNavClick = (href: string) => {
+  const handleNavClick = (href: string, isExternal?: boolean) => {
     setMobileMenuOpen(false);
+    if (isExternal) {
+      window.open(href, '_blank');
+      return;
+    }
     const element = document.querySelector(href);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -134,7 +140,7 @@ const Navbar = React.memo(() => {
               {navLinks.map((link) => (
                 <button
                   key={link.name}
-                  onClick={() => handleNavClick(link.href)}
+                  onClick={() => handleNavClick(link.href, link.isExternal)}
                   className="text-[11px] lg:text-xs font-black text-indigo-950 hover:text-indigo-600 transition-colors uppercase tracking-widest"
                 >
                   {link.name}
@@ -234,7 +240,7 @@ const Navbar = React.memo(() => {
                     visible: { opacity: 1, x: 0, transition: { duration: 0.3 } }
                   }}
                   key={link.name}
-                  onClick={() => handleNavClick(link.href)}
+                  onClick={() => handleNavClick(link.href, link.isExternal)}
                   className="text-left px-4 py-3 text-sm font-black text-indigo-950 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all uppercase tracking-widest"
                 >
                   {link.name}
@@ -305,9 +311,17 @@ const Footer = React.memo(() => {
                 { name: 'Why Us', href: '#why-us' },
                 { name: 'Gallery', href: '#gallery' },
                 { name: 'Parents', href: '#parents' },
-                { name: 'Contact', href: '#contact' }
+                { name: 'Contact', href: '#contact' },
+                { name: 'Regulation', href: '/Alberta%20Childcare%20Regulation%20Actr%20Sept%202025.pdf', isExternal: true },
+                { name: 'Handbook', href: '/Employee%20Handbook%20April%202026.pdf', isExternal: true }
               ].map(item => (
-                <a key={item.name} href={item.href} className="text-indigo-900/80 hover:text-indigo-600 transition-colors font-semibold text-[10px]">
+                <a 
+                  key={item.name} 
+                  href={item.href} 
+                  target={item.isExternal ? "_blank" : undefined}
+                  rel={item.isExternal ? "noopener noreferrer" : undefined}
+                  className="text-indigo-900/80 hover:text-indigo-600 transition-colors font-semibold text-[10px]"
+                >
                   {item.name}
                 </a>
               ))}
